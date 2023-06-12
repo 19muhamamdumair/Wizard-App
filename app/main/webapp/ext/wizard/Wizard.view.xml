@@ -67,16 +67,19 @@
                             
 								<m:Label text="First Name"/>
                                 <m:Input valueStateText="Enter 6 symbols or more"
-											valueState="{/productNameState}" id="fname" liveChange="additionalInfoValidation"
+											valueState="{/firstNameState}" id="fname" liveChange="additionalInfoValidation"
 											placeholder="First Name" value="{/productName}"/>
 								
 								<m:Label text="Last Name"/>
                                 <m:Input valueStateText="Enter 6 symbols or more"
-											valueState="{/productWeightState}" id="lname" liveChange="additionalInfoValidation"
+											valueState="{/lastNameState}" id="lname" liveChange="additionalInfoValidation"
 											placeholder="Last Name" value="{/productWeight}"/>
 
                                 <m:Label text="Completion Date" />
-                                <m:DatePicker value="{
+                                <m:DatePicker liveChange="completionDateChange" id="completionDate"
+								 	valueState="{/completionDateState}"
+									placeholder="Enter CompletionDate"
+									value="{
                                     path: '/date',
                                     type: 'sap.ui.model.type.Date'}" />
 							</form:content>
@@ -149,7 +152,7 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <m:Title text="My Webshop"/>
+                    <m:Title text="Items Data"/>
                 </f:heading>
                 <f:expandedContent>
                     <macros:FilterBar metaPath="" search=".onSearch"

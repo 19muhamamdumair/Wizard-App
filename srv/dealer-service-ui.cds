@@ -72,7 +72,7 @@ annotate service.Items with @(
         {
             $Type : 'UI.DataField',
             Label : 'Product ID',
-            Value : ID,
+            Value : product.productID,
         },
         {
             $Type : 'UI.DataField',

@@ -15,8 +15,8 @@ sap.ui.define([
 
 			this.model = new JSONModel();
 			this.model.setData({
-				productNameState: "Error",
-				productWeightState: "Error"
+				firstNameState: "Error",
+				lastNameState: "Error"
 			});
 			this.getView().setModel(this.model,"mymodel");
 			this.getModel("mymodel").setProperty("/productType", "Mobile");
@@ -46,31 +46,38 @@ sap.ui.define([
 			this._wizard.validateStep(this.byId("ProductTypeStep"));
 		},
 
+		completionDateChange: function() {
+			var cDate = this.byId("completionDate").getValue();
+
+		},
+
 		additionalInfoValidation: function () {
 			var fname = this.byId("fname").getValue();
 			var lname = this.byId("lname").getValue();
 
+			this.getModel("mymodel").setProperty("/completionDateState", "None");
+
 			// if (isNaN(lname)) {
 			// 	this._wizard.setCurrentStep(this.byId("ProductInfoStep"));
-			// 	this.getModel("mymodel").setProperty("/productWeightState", "Error");
+			// 	this.getModel("mymodel").setProperty("/lastNameState", "Error");
 			// } else {
-			// 	this.getModel("mymodel").setProperty("/productWeightState", "None");
+			// 	this.getModel("mymodel").setProperty("/lastNameState", "None");
 			// }
 
             
 
 			if (fname.length < 6) {
 				this._wizard.setCurrentStep(this.byId("ProductInfoStep"));
-				this.getModel("mymodel").setProperty("/productNameState", "Error");
+				this.getModel("mymodel").setProperty("/firstNameState", "Error");
 			} else {
-				this.getModel("mymodel").setProperty("/productNameState", "None");
+				this.getModel("mymodel").setProperty("/firstNameState", "None");
 			}
 
             if (lname.length < 6) {
 				this._wizard.setCurrentStep(this.byId("ProductInfoStep"));
-				this.getModel("mymodel").setProperty("/productWeightState", "Error");
+				this.getModel("mymodel").setProperty("/lastNameState", "Error");
 			} else {
-				this.getModel("mymodel").setProperty("/productWeightState", "None");
+				this.getModel("mymodel").setProperty("/lastNameState", "None");
 			}
 
 			if (fname.length < 6 || lname.length < 6) {
@@ -193,8 +200,8 @@ sap.ui.define([
 				}
 			};
 
-			this.getModel("mymodel").setProperty("/productWeightState", "Error");
-			this.getModel("mymodel").setProperty("/productNameState", "Error");
+			this.getModel("mymodel").setProperty("/lastNameState", "Error");
+			this.getModel("mymodel").setProperty("/firstNameState", "Error");
 			clearContent(this._wizard.getSteps());
 		}
 	});
@@ -221,8 +228,8 @@ sap.ui.define([
 
 
 //             this.model.setData({
-// 				productNameState: "Error",
-// 				productWeightState: "Error"
+// 				firstNameState: "Error",
+// 				lastNameState: "Error"
 // 			});
 //             // this.setModel(this.model);
 // 			this.getView().setModel(this.model,"mymodel");
@@ -250,25 +257,25 @@ sap.ui.define([
 
 // 			// if (isNaN(lname)) {
 // 			// 	this._wizard.setCurrentStep(this.byId("ProductInfoStep"));
-// 			// 	this.getModel("mymodel").setProperty("/productWeightState", "Error");
+// 			// 	this.getModel("mymodel").setProperty("/lastNameState", "Error");
 // 			// } else {
-// 			// 	this.getModel("mymodel").setProperty("/productWeightState", "None");
+// 			// 	this.getModel("mymodel").setProperty("/lastNameState", "None");
 // 			// }
 
             
 
 // 			if (fname.length < 6) {
 // 				this._wizard.setCurrentStep(this.byId("ProductInfoStep"));
-// 				this.getModel("mymodel").setProperty("/productNameState", "Error");
+// 				this.getModel("mymodel").setProperty("/firstNameState", "Error");
 // 			} else {
-// 				this.getModel("mymodel").setProperty("/productNameState", "None");
+// 				this.getModel("mymodel").setProperty("/firstNameState", "None");
 // 			}
 
 //             if (lname.length < 6) {
 // 				this._wizard.setCurrentStep(this.byId("ProductInfoStep"));
-// 				this.getModel("mymodel").setProperty("/productWeightState", "Error");
+// 				this.getModel("mymodel").setProperty("/lastNameState", "Error");
 // 			} else {
-// 				this.getModel("mymodel").setProperty("/productWeightState", "None");
+// 				this.getModel("mymodel").setProperty("/lastNameState", "None");
 // 			}
 
 // 			if (fname.length < 6 || lname.length < 6) {
