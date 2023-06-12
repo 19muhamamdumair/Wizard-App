@@ -1,0 +1,52 @@
+{
+    "name": "NewWizardApp",
+    "version": "1.0.0",
+    "description": "A simple CAP project.",
+    "repository": "<Add your repository here>",
+    "license": "UNLICENSED",
+    "private": true,
+    "dependencies": {
+        "@sap/cds": "^6",
+        "@sap/cds-dk": "^4.8.2",
+        "@sap/cds-odata-v2-adapter-proxy": "^1.8.4",
+        "@sap/textbundle": "^4",
+        "@sap/xsenv": "^3.1.0",
+        "@sap/xssec": "^3.1.1",
+        "axios": "^0.27.2",
+        "cors": "^2.8.5",
+        "express": "^4",
+        "form-data": "^4.0.0",
+        "hana": "0.0.2",
+        "hdb": "^0.19.0",
+        "passport": "^0.4.1"
+    },
+    "devDependencies": {
+        "@sap/ux-specification": "^1.108.7",
+        "sqlite3": "^5.0.4",
+        "rimraf": "^3.0.2"
+    },
+    "scripts": {
+        "start": "cds run",
+        "hana": "cds deploy --to hana:wizard-db --auto-undeploy",
+        "deploy": "cf deploy mta_archives/archive.mtar --retries 1",
+        "watch-main": "cds watch --open main/webapp/index.html?sap-ui-xx-viewCache=false",
+        "undeploy": "cf undeploy NewWizardApp --delete-services --delete-service-keys --delete-service-brokers",
+        "build": "rimraf resources mta_archives && mbt build --mtar archive"
+    },
+    "cds": {
+        "requires": {
+            "db": {
+                "kind": "hana",
+                "credentials": {
+                    "database": "wizard"
+                }
+            }
+        },
+        "hana": {
+            "deploy-format": "hdbtable"
+        }
+    },
+    "sapux": [
+        "app/main"
+    ]
+}

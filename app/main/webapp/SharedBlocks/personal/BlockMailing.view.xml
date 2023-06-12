@@ -1,0 +1,30 @@
+<mvc:View
+		xmlns:mvc="sap.ui.core.mvc"
+		xmlns:forms="sap.ui.layout.form"
+		xmlns:core="sap.ui.core"
+		xmlns="sap.m">
+
+	<forms:SimpleForm layout="ColumnLayout" width="100%">
+
+		<core:Title text="Service Address"/>
+
+		<Label text="House No"/>
+		<Text text="test"/>
+
+		<Label text="Street"/>
+		<Text text="test"/>
+
+		<Label text="Unit No"/>
+		<Text text="test"/>
+
+		<Label text="City"/>
+		<Text text="test"/>
+
+		<Label text="Province"/>
+		<Text text="test"/>
+
+		<Label text="Postal Code"/>
+		<Text text="test"/>
+
+	</forms:SimpleForm>
+</mvc:View>

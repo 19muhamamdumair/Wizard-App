@@ -1,0 +1,201 @@
+<!-- <mvc:View
+		height="100%"
+		controllerName="main.ext.wizard.Wizard"
+		xmlns:form="sap.ui.layout.form"
+		xmlns:core="sap.ui.core"
+		xmlns:u="sap.ui.unified"
+		xmlns:mvc="sap.ui.core.mvc"
+		xmlns="sap.m"
+        
+        xmlns:uxap="sap.uxap"
+        xmlns:layout="sap.ui.layout"
+        xmlns:goals="main.SharedBlocks.goals"
+        xmlns:personal="main.SharedBlocks.personal"
+        xmlns:employment="main.SharedBlocks.employment"
+        
+        
+        >
+		<NavContainer id="wizardNavContainer">
+			<pages>
+            <Page
+				id="wizardContentPage"
+				showHeader="false">
+					<content>
+						<Wizard id="CreateProductWizard" class="sapUiResponsivePadding--header sapUiResponsivePadding--content"
+								complete="wizardCompletedHandler">
+							<WizardStep id="Customer"
+										title="Customer"
+										validated="true">
+
+                                        
+
+<uxap:ObjectPageLayout id="ObjectPageLayout"
+		showTitleInHeaderContent="true"
+		showEditHeaderButton="true"
+		editHeaderButtonPress="handleEditBtnPress"
+		upperCaseAnchorBar="false">
+
+                                        <uxap:sections>
+
+                            	<uxap:ObjectPageSection titleUppercase="false" id="personalSection" title="Personal" importance="Medium">
+					
+					<uxap:subSections>
+					<uxap:ObjectPageSubSection id="personalSectionSS1" title="Connect" titleUppercase="false">
+						<uxap:blocks>
+							<personal:BlockPhoneNumber id="phone"/>
+							<personal:BlockSocial id="social"/>
+							<personal:BlockAdresses id="adresses"/>
+							<personal:BlockMailing id="mailing" columnLayout="1"/>
+						</uxap:blocks>
+					</uxap:ObjectPageSubSection>
+
+					<uxap:ObjectPageSubSection id="personalSectionSS2" title="Payment information" titleUppercase="false">
+						<uxap:blocks>
+							<personal:PersonalBlockPart1 id="part1" columnLayout="1"/>
+						</uxap:blocks>
+						<uxap:blocks>
+							<personal:PersonalBlockPart2 id="part2" columnLayout="1"/>
+						</uxap:blocks>
+					</uxap:ObjectPageSubSection>
+				</uxap:subSections>
+			</uxap:ObjectPageSection>
+
+            </uxap:sections>
+
+            </uxap:ObjectPageLayout>
+
+            
+								
+							</WizardStep>
+
+
+
+
+
+							
+						</Wizard>
+					</content>
+					<footer>
+						<OverflowToolbar>
+							<ToolbarSpacer/>
+							<Button text="Cancel" press="handleWizardCancel"/>
+						</OverflowToolbar>
+					</footer>
+				</Page>
+				<Page id="wizardReviewPage" showHeader="false">
+					<content>
+						<!-- <form:SimpleForm
+								title="Customer"
+								minWidth="1024"
+								editable="false"
+								layout="ResponsiveGridLayout">
+							<form:content>
+								<Label text="Primary Address"/>
+								<Text id="ProductTypeChosen" text="{/productType}"/>
+                                <Label text="Secondary Address"/>
+								<Text id="ProductTypeChosen2" text="{/productType}"/>
+                                <Label text="Service Address"/>
+								<Text id="ProductTypeChosen3" text="{/productType}"/>
+							</form:content>
+						</form:SimpleForm>
+                        <form:SimpleForm
+								title="Installer"
+								minWidth="1024"
+								editable="true"
+								layout="ResponsiveGridLayout">
+							<form:content>
+                            <form:SimpleForm
+										editable="true">
+
+									
+									
+									
+								</form:SimpleForm>
+								<Label text="First Name"/>
+                                <Input valueStateText="Enter 6 symbols or more"
+											valueState="{/productNameState}" id="fname" liveChange="additionalInfoValidation"
+											placeholder="First Name" value="{/productName}"/>
+								
+								<Label text="Last Name"/>
+                                <Input valueStateText="Enter 6 symbols or more"
+											valueState="{/productNameState}" id="lname" liveChange="additionalInfoValidation"
+											placeholder="Last Name" value="{/productName}"/>
+
+                                <Label text="Completion Date" />
+                                <DatePicker value="{
+                                    path: '/date',
+                                    type: 'sap.ui.model.type.Date'}" />
+							</form:content>
+						</form:SimpleForm> -->
+
+						<form:SimpleForm
+								title="2. Product Information"
+								minWidth="1024"
+								editable="false"
+								layout="ResponsiveGridLayout">
+							<form:content>
+								<Label text="Name"/>
+								<Text id="ProductNameChosen" text="{/productName}"/>
+								<Label text="Weight"/>
+								<Text id="ProductWeightChosen" text="{/productWeight}"/>
+								<Label text="Manufacturer"/>
+								<Text id="ProductManufacturerChosen" text="{/productManufacturer}"/>
+								<Label text="Description"/>
+								<Text id="ProductDescriptionChosen" text="{/productDescription}"/>
+								<Link press="editStepTwo" text="Edit" />
+							</form:content>
+						</form:SimpleForm>
+
+						<form:SimpleForm
+								title="3. Optional Information"
+								minWidth="1024"
+								editable="false"
+								layout="ResponsiveGridLayout">
+							<form:content>
+								<Label text="Some text"/>
+								<Text text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+								tempor incididunt ut labore et dolore magna aliqua. "/>
+								<Label text="Manufacturing Date"/>
+								<Text id="ManufacturingDate" text="{/manufacturingDate}"/>
+								<Label text="Availability"/>
+								<Text id="AvailabilityChosen" text="{/availabilityType}"/>
+								<Label text="Size"/>
+								<HBox>
+									<Text id="Size" text="{/size}"/>
+									<Text id="Size2" class="sapUiTinyMarginBegin" text="{/measurement}"/>
+								</HBox>
+								<Link press="editStepThree" text="Edit" />
+							</form:content>
+						</form:SimpleForm>
+
+						<form:SimpleForm
+								title="4. Pricing"
+								minWidth="1024"
+								editable="false"
+								layout="ResponsiveGridLayout">
+							<form:content>
+								<Label text="Price"/>
+								<Text id="ProductPriceChosen" text="{/productPrice}"/>
+								<Label text="Discount Group"/>
+								<Text id="DiscountGroupChosen" text="{/discountGroup}"/>
+								<Label text="VAT Included"/>
+								<Text id="ProductVATChosen" text="{/productVAT}"/>
+								<Link press="editStepFour" text="Edit" />
+							</form:content>
+						</form:SimpleForm>
+					</content>
+					<footer>
+						<Bar>
+							<contentRight>
+								<Button text="Submit" press="handleWizardSubmit"/>
+								<Button text="Cancel" press="handleWizardCancel"/>
+							</contentRight>
+						</Bar>
+					</footer>
+				</Page>
+			</pages>
+		</NavContainer>
+</mvc:View> -->
+
+
+

@@ -1,0 +1,44 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:macros="sap.fe.macros" xmlns:f="sap.f" xmlns:cards="sap.f.cards"
+          xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:macrosTable="sap.fe.macros.table"
+          
+           controllerName="main.ext.main.Main">
+    <f:DynamicPage id="Main">
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="My Webshop"/>
+                </f:heading>
+                <f:expandedContent>
+                    <macros:FilterBar metaPath="" search=".onSearch"
+                                      filterChanged=".onFiltersChanged"/>
+                </f:expandedContent>
+                <f:actions>
+                    <Button icon="sap-icon://action" tooltip="Share" text="Go to checkout (4)" press='.onGoToCheckout' />
+                </f:actions>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:content>
+           <macros:Table
+           
+							metaPath="/DealerHeaders/@com.sap.vocabularies.UI.v1.LineItem"
+							readOnly="true"
+							id="LineItemTablePageCustomActions"
+							busy="{ui>/isBusy}"
+                        >
+                        <macros:actions>
+							<macrosTable:Action
+								key="customAction"
+								text="My Custom Action"
+								press=".onPressAction"
+								placement="After"
+								anchor="DataFieldForAction::Service.toggleBoolean"
+								requiresSelection="true"
+							/>
+						
+						</macros:actions>
+                        </macros:Table>
+
+        </f:content>
+    </f:DynamicPage>
+</mvc:View>

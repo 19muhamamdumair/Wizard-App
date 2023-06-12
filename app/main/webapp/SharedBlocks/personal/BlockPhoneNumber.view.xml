@@ -1,0 +1,27 @@
+<mvc:View
+		xmlns:mvc="sap.ui.core.mvc"
+		xmlns:forms="sap.ui.layout.form"
+		xmlns:core="sap.ui.core"
+		xmlns="sap.m">
+
+	<forms:SimpleForm layout="ColumnLayout" width="100%">
+
+		<core:Title text="Primary"/>
+
+		<Label text="Title"/>
+		<Text text="Mr"/>
+
+		<Label text="First Name"/>
+		<Text text="umair"/>
+
+		<Label text="Last Name"/>
+		<Text text="ali"/>
+
+		<Label text="Email"/>
+		<Text text="test@gmail.com"/>
+
+	
+
+	</forms:SimpleForm>
+
+</mvc:View>

@@ -1,0 +1,132 @@
+{
+    "_version": "1.49.0",
+    "sap.app": {
+        "id": "main",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "0.52.1"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "resources": "resources.json",
+        "sourceTemplate": {
+            "id": "@sap/generator-fiori:fpm",
+            "version": "1.9.7",
+            "toolsId": "6a2855dd-44aa-4c01-93a2-b20e12b7d364"
+        },
+        "dataSources": {
+            "mainService": {
+                "uri": "/dealer/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [],
+                    "localUri": "localService/metadata.xml",
+                    "odataVersion": "4.0"
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "rootView": {
+            "viewName": "sap.fe.core.rootView.Fcl",
+            "type": "XML",
+            "async": true,
+            "id": "App"
+            },
+        "flexEnabled": true,
+        "dependencies": {
+            "minUI5Version": "1.114.0",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {},
+                "sap.ushell": {},
+                "sap.fe.templates": {},
+                "sap.f": {},
+                "sap.uxap": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "main.i18n.i18n"
+                }
+            },
+            "": {
+                "dataSource": "mainService",
+                "preload": true,
+                "settings": {
+                    "synchronizationMode": "None",
+                    "operationMode": "Server",
+                    "autoExpandSelect": true,
+                    "earlyRequests": true
+                }
+            },
+            "@i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties"
+            }
+        },
+        "resources": {
+            "css": []
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.f.routing.Router",
+                "flexibleColumnLayout": {
+                    "defaultTwoColumnLayoutType": "TwoColumnsMidExpanded",
+                    "defaultThreeColumnLayoutType": "ThreeColumnsMidExpanded"
+                }
+            },
+            "routes": [
+                {
+                    "name": "DealerHeadersMain",
+                    "pattern": ":?query:",
+                    "target": "Wizard"
+                }
+            ],
+            "targets": {
+                
+                "Wizard": {
+                    "type": "Component",
+                    "name": "sap.fe.core.fpm",
+                    "options": {
+                        "settings": {                          
+                            "viewName":"main.ext.wizard.Wizard",
+                            "entitySet": "DealerHeaders"
+                        }
+                    },
+                    "title": "Wizard Page",
+                    "id": "2",
+                    "controlAggregation": "beginColumnPages",
+                    "contextPattern": ""
+                }
+            }
+        }
+    },
+    "sap.cloud": {
+        "public": true,
+        "service": "wizard"
+    }
+}

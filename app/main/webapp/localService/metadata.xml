@@ -1,0 +1,1013 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Measures.V1.xml">
+        <edmx:Include Alias="Measures" Namespace="Org.OData.Measures.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="DealerService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="DealerHeaders" EntityType="DealerService.DealerHeaders">
+                    <NavigationPropertyBinding Path="status" Target="DocumentStatus"/>
+                    <NavigationPropertyBinding Path="serviceProvince" Target="Province"/>
+                    <NavigationPropertyBinding Path="serviceCountry" Target="Countries"/>
+                    <NavigationPropertyBinding Path="currency" Target="Currencies"/>
+                    <NavigationPropertyBinding Path="items" Target="Items"/>
+                    <NavigationPropertyBinding Path="eSignDocumentReleaseLog" Target="ESignOutputLog"/>
+                </EntitySet>
+                <EntitySet Name="Items" EntityType="DealerService.Items">
+                    <NavigationPropertyBinding Path="contract" Target="DealerHeaders"/>
+                </EntitySet>
+                <EntitySet Name="DocumentStatus" EntityType="DealerService.DocumentStatus">
+                    <NavigationPropertyBinding Path="eSignStatus" Target="ESignStatus"/>
+                    <NavigationPropertyBinding Path="texts" Target="DocumentStatus_texts"/>
+                    <NavigationPropertyBinding Path="localized" Target="DocumentStatus_texts"/>
+                </EntitySet>
+                <EntitySet Name="Province" EntityType="DealerService.Province">
+                    <NavigationPropertyBinding Path="country" Target="Countries"/>
+                    <NavigationPropertyBinding Path="texts" Target="Province_texts"/>
+                    <NavigationPropertyBinding Path="localized" Target="Province_texts"/>
+                </EntitySet>
+                <EntitySet Name="Countries" EntityType="DealerService.Countries">
+                    <NavigationPropertyBinding Path="texts" Target="Countries_texts"/>
+                    <NavigationPropertyBinding Path="localized" Target="Countries_texts"/>
+                </EntitySet>
+                <EntitySet Name="Currencies" EntityType="DealerService.Currencies">
+                    <NavigationPropertyBinding Path="texts" Target="Currencies_texts"/>
+                    <NavigationPropertyBinding Path="localized" Target="Currencies_texts"/>
+                </EntitySet>
+                <EntitySet Name="ESignOutputLog" EntityType="DealerService.ESignOutputLog">
+                    <NavigationPropertyBinding Path="contract" Target="DealerHeaders"/>
+                    <NavigationPropertyBinding Path="status" Target="ESignStatus"/>
+                    <NavigationPropertyBinding Path="eSignAdobeAuditTrail" Target="AdobeESignDocumentAuditTrail"/>
+                </EntitySet>
+                <EntitySet Name="ESignStatus" EntityType="DealerService.ESignStatus">
+                    <NavigationPropertyBinding Path="documentStatus" Target="DocumentStatus"/>
+                    <NavigationPropertyBinding Path="texts" Target="ESignStatus_texts"/>
+                    <NavigationPropertyBinding Path="localized" Target="ESignStatus_texts"/>
+                </EntitySet>
+                <EntitySet Name="AdobeESignDocumentAuditTrail" EntityType="DealerService.AdobeESignDocumentAuditTrail">
+                    <NavigationPropertyBinding Path="contract" Target="DealerHeaders"/>
+                    <NavigationPropertyBinding Path="ESignOutputLog" Target="ESignOutputLog"/>
+                </EntitySet>
+                <EntitySet Name="DocumentStatus_texts" EntityType="DealerService.DocumentStatus_texts"/>
+                <EntitySet Name="Province_texts" EntityType="DealerService.Province_texts"/>
+                <EntitySet Name="Countries_texts" EntityType="DealerService.Countries_texts"/>
+                <EntitySet Name="Currencies_texts" EntityType="DealerService.Currencies_texts"/>
+                <EntitySet Name="ESignStatus_texts" EntityType="DealerService.ESignStatus_texts"/>
+            </EntityContainer>
+            <EntityType Name="DealerHeaders">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="contractID" Type="Edm.String" MaxLength="10"/>
+                <Property Name="contractType" Type="Edm.String" MaxLength="100"/>
+                <Property Name="dealerBPID" Type="Edm.String" MaxLength="10"/>
+                <Property Name="customerBPID" Type="Edm.String" MaxLength="10"/>
+                <NavigationProperty Name="status" Type="DealerService.DocumentStatus">
+                    <ReferentialConstraint Property="status_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="status_ID" Type="Edm.String" MaxLength="3"/>
+                <Property Name="statusDate" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="statusSince" Type="Edm.String"/>
+                <Property Name="statusCriticality" Type="Edm.String" DefaultValue="Positive"/>
+                <Property Name="remarks" Type="Edm.String" MaxLength="2000"/>
+                <Property Name="primaryCustomerTitle" Type="Edm.String" MaxLength="3"/>
+                <Property Name="primaryCustomerFirstName" Type="Edm.String" MaxLength="40"/>
+                <Property Name="primaryCustomerLastName" Type="Edm.String" MaxLength="40"/>
+                <Property Name="primaryCustomerEmail" Type="Edm.String" MaxLength="80"/>
+                <Property Name="secondaryCustomerTitle" Type="Edm.String" MaxLength="3"/>
+                <Property Name="secondaryCustomerFirstName" Type="Edm.String" MaxLength="40"/>
+                <Property Name="secondaryCustomerLastName" Type="Edm.String" MaxLength="40"/>
+                <Property Name="secondaryCustomerEmail" Type="Edm.String" MaxLength="80"/>
+                <Property Name="serviceHouseNumber" Type="Edm.String" MaxLength="60"/>
+                <Property Name="serviceStreetName" Type="Edm.String" MaxLength="60"/>
+                <Property Name="serviceUnitNumber" Type="Edm.String" MaxLength="60"/>
+                <Property Name="serviceCity" Type="Edm.String" MaxLength="40"/>
+                <Property Name="servicePostalCode" Type="Edm.String" MaxLength="10"/>
+                <NavigationProperty Name="serviceProvince" Type="DealerService.Province">
+                    <ReferentialConstraint Property="serviceProvince_code" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <Property Name="serviceProvince_code" Type="Edm.String" MaxLength="2"/>
+                <NavigationProperty Name="serviceCountry" Type="DealerService.Countries">
+                    <ReferentialConstraint Property="serviceCountry_code" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <Property Name="serviceCountry_code" Type="Edm.String" MaxLength="3"/>
+                <Property Name="servicePhone" Type="Edm.String" MaxLength="12"/>
+                <Property Name="productCategory_ID" Type="Edm.String" MaxLength="3"/>
+                <Property Name="productCategory_name" Type="Edm.String" MaxLength="255"/>
+                <NavigationProperty Name="currency" Type="DealerService.Currencies">
+                    <ReferentialConstraint Property="currency_code" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <Property Name="currency_code" Type="Edm.String" MaxLength="3"/>
+                <Property Name="monthlyCost" Type="Edm.Decimal" Scale="2" Precision="11"/>
+                <Property Name="monthlyTaxes" Type="Edm.Decimal" Scale="2" Precision="11"/>
+                <Property Name="monthlyTotalCost" Type="Edm.Decimal" Scale="2" Precision="22"/>
+                <Property Name="totalCost" Type="Edm.Decimal" Scale="2" Precision="22"/>
+                <Property Name="totalOMCost" Type="Edm.Decimal" Scale="2" Precision="22"/>
+                <Property Name="estimatedInstallationDate" Type="Edm.Date"/>
+                <Property Name="inflator" Type="Edm.Decimal" Scale="2" Precision="5"/>
+                <Property Name="taxRate" Type="Edm.Decimal" Scale="2" Precision="5"/>
+                <Property Name="annualEGICost" Type="Edm.Decimal" Scale="2" Precision="11"/>
+                <Property Name="annualEGICostEffectiveDate" Type="Edm.Date"/>
+                <Property Name="minUsefulLifeYears" Type="Edm.Int32"/>
+                <Property Name="termsOfLeaseYears" Type="Edm.Int32"/>
+                <Property Name="annualAPRPrnct" Type="Edm.Decimal" Scale="2" Precision="5"/>
+                <Property Name="annualEBITDAPrcnt" Type="Edm.Decimal" Scale="3" Precision="6"/>
+                <Property Name="annualEBITDAAPREffectiveDate" Type="Edm.Date"/>
+                <Property Name="annualDealerCost" Type="Edm.Decimal" Scale="2" Precision="11"/>
+                <Property Name="productsText" Type="Edm.String" MaxLength="2000"/>
+                <Property Name="firstYearAnnualBill" Type="Edm.Decimal" Scale="2" Precision="22"/>
+                <Property Name="monthlyPriceForCapital" Type="Edm.Decimal" Scale="2" Precision="11"/>
+                <Property Name="monthlyEBITDAPrcnt" Type="Edm.Decimal" Scale="3" Precision="6"/>
+                <Property Name="monthlyDealerCost" Type="Edm.Decimal" Scale="2" Precision="11"/>
+                <Property Name="monthlyEGICost" Type="Edm.Decimal" Scale="2" Precision="11"/>
+                <Property Name="noOfMonthlyPayments" Type="Edm.Int32"/>
+                <Property Name="totalLeaseCost" Type="Edm.Decimal" Scale="2" Precision="11"/>
+                <Property Name="leaseValueOfEquipment" Type="Edm.Decimal" Scale="2" Precision="22"/>
+                <Property Name="estimatedResidualValue" Type="Edm.Decimal" Scale="2" Precision="22"/>
+                <Property Name="implicitFinaceCharge" Type="Edm.Decimal" Scale="2" Precision="22"/>
+                <NavigationProperty Name="items" Type="Collection(DealerService.Items)" Partner="contract">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="eSignDocumentReleaseLog" Type="Collection(DealerService.ESignOutputLog)" Partner="contract">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <Property Name="workCompletionCertifacate_ID" Type="Edm.Guid"/>
+                <Property Name="a" Type="Edm.String" DefaultValue="Magil Construction Corporation"/>
+                <Property Name="b" Type="Edm.String" DefaultValue="40"/>
+                <Property Name="c" Type="Edm.String" DefaultValue="50th Street"/>
+                <Property Name="d" Type="Edm.String" DefaultValue="Stayner"/>
+                <Property Name="e" Type="Edm.String" DefaultValue="L1V 5V6"/>
+                <Property Name="f" Type="Edm.String" DefaultValue="Ontario (ON)"/>
+                <Property Name="g" Type="Edm.String" DefaultValue="Canada (CA)"/>
+                <Property Name="h" Type="Edm.String" DefaultValue="Mr."/>
+                <Property Name="i" Type="Edm.String" DefaultValue="Kael Rass"/>
+                <Property Name="j" Type="Edm.String" DefaultValue="kael@rass.com"/>
+                <Property Name="k" Type="Edm.String" DefaultValue="4165659898"/>
+                <Property Name="l" Type="Edm.String" DefaultValue="1000000110"/>
+                <Property Name="recalculateFlag" Type="Edm.Boolean" DefaultValue="false"/>
+                <Property Name="contractStatusName" Type="Edm.String" MaxLength="255"/>
+                <Property Name="productCategoryName" Type="Edm.String" MaxLength="80"/>
+                <Property Name="certificateWorkCompletionDate" Type="Edm.String" MaxLength="255"/>
+                <Property Name="installerFullName" Type="Edm.String" MaxLength="80"/>
+                <Property Name="certificateStatusName" Type="Edm.String" MaxLength="255"/>
+                <Property Name="workCompletionCertifacateID" Type="Edm.String" MaxLength="10"/>
+                <Property Name="certificateStatusCriticality" Type="Edm.String" DefaultValue="Positive"/>
+                <Property Name="createdDate" Type="Edm.Date"/>
+                <Property Name="editFlag" Type="Edm.Boolean" DefaultValue="true"/>
+                <Property Name="deleteFlag" Type="Edm.Boolean" DefaultValue="true"/>
+                <Property Name="cancelFlag" Type="Edm.Boolean" DefaultValue="true"/>
+                <Property Name="releaseFlag" Type="Edm.Boolean" DefaultValue="true"/>
+                <Property Name="createCertificateFlag" Type="Edm.Boolean" DefaultValue="true"/>
+                <Property Name="displayPDFFlag" Type="Edm.Boolean" DefaultValue="true"/>
+            </EntityType>
+            <EntityType Name="Items">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <NavigationProperty Name="contract" Type="DealerService.DealerHeaders" Partner="items">
+                    <ReferentialConstraint Property="contract_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="contract_ID" Type="Edm.Guid"/>
+                <Property Name="product_ID" Type="Edm.Guid"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="unitCost" Type="Edm.Decimal" Scale="2" Precision="11"/>
+                <Property Name="qty" Type="Edm.Int32" DefaultValue="1"/>
+                <Property Name="totalCost" Type="Edm.Decimal" Scale="2" Precision="22"/>
+                <Property Name="oMAnnualCost" Type="Edm.Decimal" Scale="2" Precision="11"/>
+                <Property Name="productCategory_ID" Type="Edm.String" MaxLength="3"/>
+            </EntityType>
+            <EntityType Name="DocumentStatus">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="ID" Type="Edm.String" MaxLength="3" Nullable="false"/>
+                <Property Name="isDeleted" Type="Edm.Boolean" DefaultValue="false"/>
+                <Property Name="displaySequence" Type="Edm.Int32" DefaultValue="0"/>
+                <Property Name="criticality" Type="Edm.Int32"/>
+                <NavigationProperty Name="eSignStatus" Type="Collection(DealerService.ESignStatus)" Partner="documentStatus">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="texts" Type="Collection(DealerService.DocumentStatus_texts)">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="localized" Type="DealerService.DocumentStatus_texts">
+                    <ReferentialConstraint Property="ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="Province">
+                <Key>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="code" Type="Edm.String" MaxLength="2" Nullable="false"/>
+                <NavigationProperty Name="country" Type="DealerService.Countries">
+                    <ReferentialConstraint Property="country_code" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <Property Name="country_code" Type="Edm.String" MaxLength="3"/>
+                <NavigationProperty Name="texts" Type="Collection(DealerService.Province_texts)">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="localized" Type="DealerService.Province_texts">
+                    <ReferentialConstraint Property="code" ReferencedProperty="code"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="Countries">
+                <Key>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.String" MaxLength="3" Nullable="false"/>
+                <NavigationProperty Name="texts" Type="Collection(DealerService.Countries_texts)">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="localized" Type="DealerService.Countries_texts">
+                    <ReferentialConstraint Property="code" ReferencedProperty="code"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="Currencies">
+                <Key>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.String" MaxLength="3" Nullable="false"/>
+                <Property Name="symbol" Type="Edm.String" MaxLength="5"/>
+                <NavigationProperty Name="texts" Type="Collection(DealerService.Currencies_texts)">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="localized" Type="DealerService.Currencies_texts">
+                    <ReferentialConstraint Property="code" ReferencedProperty="code"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="ESignOutputLog">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="releaseID" Type="Edm.Int32"/>
+                <NavigationProperty Name="contract" Type="DealerService.DealerHeaders" Partner="eSignDocumentReleaseLog">
+                    <ReferentialConstraint Property="contract_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="contract_ID" Type="Edm.Guid"/>
+                <Property Name="eSignDocumentID" Type="Edm.String"/>
+                <Property Name="eSignDocumentName" Type="Edm.String"/>
+                <Property Name="channel" Type="Edm.String" DefaultValue="Adobe eSign"/>
+                <Property Name="eSignDocumentTemplateID" Type="Edm.String" MaxLength="50"/>
+                <Property Name="eSignDocumentTemplate_name" Type="Edm.String" MaxLength="255"/>
+                <NavigationProperty Name="status" Type="DealerService.ESignStatus">
+                    <ReferentialConstraint Property="status_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="status_ID" Type="Edm.Guid"/>
+                <NavigationProperty Name="eSignAdobeAuditTrail" Type="Collection(DealerService.AdobeESignDocumentAuditTrail)" Partner="ESignOutputLog">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="ESignStatus">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="eSignStatusID" Type="Edm.String" MaxLength="50"/>
+                <NavigationProperty Name="documentStatus" Type="DealerService.DocumentStatus" Partner="eSignStatus">
+                    <ReferentialConstraint Property="documentStatus_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="documentStatus_ID" Type="Edm.String" MaxLength="3"/>
+                <Property Name="isDeleted" Type="Edm.Boolean" DefaultValue="false"/>
+                <Property Name="displaySequence" Type="Edm.Int32" DefaultValue="0"/>
+                <NavigationProperty Name="texts" Type="Collection(DealerService.ESignStatus_texts)">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="localized" Type="DealerService.ESignStatus_texts">
+                    <ReferentialConstraint Property="ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="AdobeESignDocumentAuditTrail">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.String" Nullable="false"/>
+                <NavigationProperty Name="contract" Type="DealerService.DealerHeaders">
+                    <ReferentialConstraint Property="contract_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="contract_ID" Type="Edm.Guid"/>
+                <NavigationProperty Name="ESignOutputLog" Type="DealerService.ESignOutputLog" Partner="eSignAdobeAuditTrail">
+                    <ReferentialConstraint Property="ESignOutputLog_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="ESignOutputLog_ID" Type="Edm.Guid"/>
+                <Property Name="type" Type="Edm.String"/>
+                <Property Name="description" Type="Edm.String"/>
+                <Property Name="createdDate" Type="Edm.String"/>
+                <Property Name="participantRole" Type="Edm.String"/>
+                <Property Name="comment" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="DocumentStatus_texts">
+                <Key>
+                    <PropertyRef Name="locale"/>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="ID" Type="Edm.String" MaxLength="3" Nullable="false"/>
+            </EntityType>
+            <EntityType Name="Province_texts">
+                <Key>
+                    <PropertyRef Name="locale"/>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.String" MaxLength="2" Nullable="false"/>
+            </EntityType>
+            <EntityType Name="Countries_texts">
+                <Key>
+                    <PropertyRef Name="locale"/>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.String" MaxLength="3" Nullable="false"/>
+            </EntityType>
+            <EntityType Name="Currencies_texts">
+                <Key>
+                    <PropertyRef Name="locale"/>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.String" MaxLength="3" Nullable="false"/>
+            </EntityType>
+            <EntityType Name="ESignStatus_texts">
+                <Key>
+                    <PropertyRef Name="locale"/>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+            </EntityType>
+            <Annotations Target="DealerService.DealerHeaders/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+                </Annotations>
+                <Annotations Target="DealerService.DealerHeaders/createdBy">
+                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                    <Annotation Term="Core.Immutable" Bool="true"/>
+                    <Annotation Term="Core.Computed" Bool="true"/>
+                    <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                        <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+                        </Annotations>
+                        <Annotations Target="DealerService.DealerHeaders/modifiedAt">
+                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                            <Annotation Term="Core.Computed" Bool="true"/>
+                            <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+                            </Annotations>
+                            <Annotations Target="DealerService.DealerHeaders/modifiedBy">
+                                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                <Annotation Term="Core.Computed" Bool="true"/>
+                                <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                    <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+                                    </Annotations>
+                                    <Annotations Target="DealerService.DealerHeaders/ID">
+                                        <Annotation Term="Core.Computed" Bool="true"/>
+                                    </Annotations>
+                                    <Annotations Target="DealerService.DealerHeaders/status_ID">
+                                        <Annotation Term="Common.ValueList">
+                                            <Record Type="Common.ValueListType">
+                                                <PropertyValue Property="Label" String="DocumentStatus"/>
+                                                <PropertyValue Property="CollectionPath" String="DocumentStatus"/>
+                                                <PropertyValue Property="Parameters">
+                                                    <Collection>
+                                                        <Record Type="Common.ValueListParameterInOut">
+                                                            <PropertyValue Property="LocalDataProperty" PropertyPath="status_ID"/>
+                                                            <PropertyValue Property="ValueListProperty" String="ID"/>
+                                                        </Record>
+                                                        <Record Type="Common.ValueListParameterDisplayOnly">
+                                                            <PropertyValue Property="ValueListProperty" String="name"/>
+                                                        </Record>
+                                                    </Collection>
+                                                </PropertyValue>
+                                            </Record>
+                                        </Annotation>
+                                    </Annotations>
+                                    <Annotations Target="DealerService.DealerHeaders/statusSince">
+                                        <Annotation Term="Core.Computed" Bool="true"/>
+                                    </Annotations>
+                                    <Annotations Target="DealerService.DealerHeaders/statusCriticality">
+                                        <Annotation Term="Core.Computed" Bool="true"/>
+                                    </Annotations>
+                                    <Annotations Target="DealerService.DealerHeaders/serviceProvince_code">
+                                        <Annotation Term="Common.ValueList">
+                                            <Record Type="Common.ValueListType">
+                                                <PropertyValue Property="Label" String="Province"/>
+                                                <PropertyValue Property="CollectionPath" String="Province"/>
+                                                <PropertyValue Property="Parameters">
+                                                    <Collection>
+                                                        <Record Type="Common.ValueListParameterInOut">
+                                                            <PropertyValue Property="LocalDataProperty" PropertyPath="serviceProvince_code"/>
+                                                            <PropertyValue Property="ValueListProperty" String="code"/>
+                                                        </Record>
+                                                        <Record Type="Common.ValueListParameterDisplayOnly">
+                                                            <PropertyValue Property="ValueListProperty" String="name"/>
+                                                        </Record>
+                                                    </Collection>
+                                                </PropertyValue>
+                                            </Record>
+                                        </Annotation>
+                                    </Annotations>
+                                    <Annotations Target="DealerService.DealerHeaders/serviceCountry">
+                                        <Annotation Term="Common.Label" String="{i18n>Country}"/>
+                                            <Annotation Term="Core.Description" String="{i18n>CountryCode.Description}"/>
+                                            </Annotations>
+                                            <Annotations Target="DealerService.DealerHeaders/serviceCountry_code">
+                                                <Annotation Term="Common.Label" String="{i18n>Country}"/>
+                                                    <Annotation Term="Common.ValueList">
+                                                        <Record Type="Common.ValueListType">
+                                                            <PropertyValue Property="Label" String="{i18n>Country}"/>
+                                                                <PropertyValue Property="CollectionPath" String="Countries"/>
+                                                                <PropertyValue Property="Parameters">
+                                                                    <Collection>
+                                                                        <Record Type="Common.ValueListParameterInOut">
+                                                                            <PropertyValue Property="LocalDataProperty" PropertyPath="serviceCountry_code"/>
+                                                                            <PropertyValue Property="ValueListProperty" String="code"/>
+                                                                        </Record>
+                                                                        <Record Type="Common.ValueListParameterDisplayOnly">
+                                                                            <PropertyValue Property="ValueListProperty" String="name"/>
+                                                                        </Record>
+                                                                    </Collection>
+                                                                </PropertyValue>
+                                                            </Record>
+                                                        </Annotation>
+                                                        <Annotation Term="Core.Description" String="{i18n>CountryCode.Description}"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/currency_code">
+                                                            <Annotation Term="Common.ValueList">
+                                                                <Record Type="Common.ValueListType">
+                                                                    <PropertyValue Property="Label" String="Currencies"/>
+                                                                    <PropertyValue Property="CollectionPath" String="Currencies"/>
+                                                                    <PropertyValue Property="Parameters">
+                                                                        <Collection>
+                                                                            <Record Type="Common.ValueListParameterInOut">
+                                                                                <PropertyValue Property="LocalDataProperty" PropertyPath="currency_code"/>
+                                                                                <PropertyValue Property="ValueListProperty" String="code"/>
+                                                                            </Record>
+                                                                            <Record Type="Common.ValueListParameterDisplayOnly">
+                                                                                <PropertyValue Property="ValueListProperty" String="name"/>
+                                                                            </Record>
+                                                                        </Collection>
+                                                                    </PropertyValue>
+                                                                </Record>
+                                                            </Annotation>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/monthlyCost">
+                                                            <Annotation Term="Measures.Unit" String="CAD"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/monthlyTaxes">
+                                                            <Annotation Term="Measures.Unit" String="CAD"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/monthlyTotalCost">
+                                                            <Annotation Term="Measures.Unit" String="CAD"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/totalCost">
+                                                            <Annotation Term="Measures.Unit" String="CAD"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/totalOMCost">
+                                                            <Annotation Term="Measures.Unit" String="CAD"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/inflator">
+                                                            <Annotation Term="Measures.Unit" String="%"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/taxRate">
+                                                            <Annotation Term="Measures.Unit" String="%"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/annualEGICost">
+                                                            <Annotation Term="Measures.Unit" String="CAD"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/minUsefulLifeYears">
+                                                            <Annotation Term="Measures.Unit" String="years"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/termsOfLeaseYears">
+                                                            <Annotation Term="Measures.Unit" String="years"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/annualAPRPrnct">
+                                                            <Annotation Term="Measures.Unit" String="%"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/annualEBITDAPrcnt">
+                                                            <Annotation Term="Measures.Unit" String="%"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/annualDealerCost">
+                                                            <Annotation Term="Measures.Unit" String="CAD"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/firstYearAnnualBill">
+                                                            <Annotation Term="Measures.Unit" String="CAD"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/monthlyPriceForCapital">
+                                                            <Annotation Term="Measures.Unit" String="CAD"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/monthlyEBITDAPrcnt">
+                                                            <Annotation Term="Measures.Unit" String="%"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/monthlyDealerCost">
+                                                            <Annotation Term="Measures.Unit" String="CAD"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/monthlyEGICost">
+                                                            <Annotation Term="Measures.Unit" String="CAD"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/totalLeaseCost">
+                                                            <Annotation Term="Measures.Unit" String="CAD"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/leaseValueOfEquipment">
+                                                            <Annotation Term="Measures.Unit" String="CAD"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/estimatedResidualValue">
+                                                            <Annotation Term="Measures.Unit" String="CAD"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/implicitFinaceCharge">
+                                                            <Annotation Term="Measures.Unit" String="CAD"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/a">
+                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/b">
+                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/c">
+                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/d">
+                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/e">
+                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/f">
+                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/g">
+                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/h">
+                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/i">
+                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/j">
+                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/k">
+                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/l">
+                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/recalculateFlag">
+                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/contractStatusName">
+                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/productCategoryName">
+                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/certificateWorkCompletionDate">
+                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/installerFullName">
+                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/certificateStatusName">
+                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/workCompletionCertifacateID">
+                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/certificateStatusCriticality">
+                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/createdDate">
+                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/editFlag">
+                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/deleteFlag">
+                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/cancelFlag">
+                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/releaseFlag">
+                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/createCertificateFlag">
+                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.DealerHeaders/displayPDFFlag">
+                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                        </Annotations>
+                                                        <Annotations Target="DealerService.Items/createdAt">
+                                                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                            <Annotation Term="Core.Immutable" Bool="true"/>
+                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                            <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+                                                            </Annotations>
+                                                            <Annotations Target="DealerService.Items/createdBy">
+                                                                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                <Annotation Term="Core.Immutable" Bool="true"/>
+                                                                <Annotation Term="Core.Computed" Bool="true"/>
+                                                                <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                                    <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+                                                                    </Annotations>
+                                                                    <Annotations Target="DealerService.Items/modifiedAt">
+                                                                        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                        <Annotation Term="Core.Computed" Bool="true"/>
+                                                                        <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+                                                                        </Annotations>
+                                                                        <Annotations Target="DealerService.Items/modifiedBy">
+                                                                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                                            <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                                                <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+                                                                                </Annotations>
+                                                                                <Annotations Target="DealerService.Items/ID">
+                                                                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                </Annotations>
+                                                                                <Annotations Target="DealerService.Items/product_ID">
+                                                                                    <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+                                                                                </Annotations>
+                                                                                <Annotations Target="DealerService.DocumentStatus">
+                                                                                    <Annotation Term="UI.Identification">
+                                                                                        <Collection>
+                                                                                            <Record Type="UI.DataField">
+                                                                                                <PropertyValue Property="Value" Path="name"/>
+                                                                                            </Record>
+                                                                                        </Collection>
+                                                                                    </Annotation>
+                                                                                </Annotations>
+                                                                                <Annotations Target="DealerService.DocumentStatus/createdAt">
+                                                                                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                    <Annotation Term="Core.Immutable" Bool="true"/>
+                                                                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                    <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+                                                                                    </Annotations>
+                                                                                    <Annotations Target="DealerService.DocumentStatus/createdBy">
+                                                                                        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                        <Annotation Term="Core.Immutable" Bool="true"/>
+                                                                                        <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                        <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                                                            <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+                                                                                            </Annotations>
+                                                                                            <Annotations Target="DealerService.DocumentStatus/modifiedAt">
+                                                                                                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+                                                                                                </Annotations>
+                                                                                                <Annotations Target="DealerService.DocumentStatus/modifiedBy">
+                                                                                                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                    <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                                                                        <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+                                                                                                        </Annotations>
+                                                                                                        <Annotations Target="DealerService.DocumentStatus/name">
+                                                                                                            <Annotation Term="Common.Label" String="{i18n>Name}"/>
+                                                                                                            </Annotations>
+                                                                                                            <Annotations Target="DealerService.DocumentStatus/descr">
+                                                                                                                <Annotation Term="Common.Label" String="{i18n>Description}"/>
+                                                                                                                </Annotations>
+                                                                                                                <Annotations Target="DealerService.DocumentStatus/ID">
+                                                                                                                    <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+                                                                                                                </Annotations>
+                                                                                                                <Annotations Target="DealerService.Province">
+                                                                                                                    <Annotation Term="UI.Identification">
+                                                                                                                        <Collection>
+                                                                                                                            <Record Type="UI.DataField">
+                                                                                                                                <PropertyValue Property="Value" Path="name"/>
+                                                                                                                            </Record>
+                                                                                                                        </Collection>
+                                                                                                                    </Annotation>
+                                                                                                                </Annotations>
+                                                                                                                <Annotations Target="DealerService.Province/name">
+                                                                                                                    <Annotation Term="Common.Label" String="{i18n>Name}"/>
+                                                                                                                    </Annotations>
+                                                                                                                    <Annotations Target="DealerService.Province/descr">
+                                                                                                                        <Annotation Term="Common.Label" String="{i18n>Description}"/>
+                                                                                                                        </Annotations>
+                                                                                                                        <Annotations Target="DealerService.Province/createdAt">
+                                                                                                                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                            <Annotation Term="Core.Immutable" Bool="true"/>
+                                                                                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                            <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+                                                                                                                            </Annotations>
+                                                                                                                            <Annotations Target="DealerService.Province/createdBy">
+                                                                                                                                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                                <Annotation Term="Core.Immutable" Bool="true"/>
+                                                                                                                                <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                                                                                                    <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+                                                                                                                                    </Annotations>
+                                                                                                                                    <Annotations Target="DealerService.Province/modifiedAt">
+                                                                                                                                        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                                        <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                        <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+                                                                                                                                        </Annotations>
+                                                                                                                                        <Annotations Target="DealerService.Province/modifiedBy">
+                                                                                                                                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                            <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                                                                                                                <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+                                                                                                                                                </Annotations>
+                                                                                                                                                <Annotations Target="DealerService.Province/code">
+                                                                                                                                                    <Annotation Term="Common.Label" String="{i18n>provinceCode}"/>
+                                                                                                                                                        <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+                                                                                                                                                    </Annotations>
+                                                                                                                                                    <Annotations Target="DealerService.Province/country">
+                                                                                                                                                        <Annotation Term="Common.Label" String="{i18n>Country}"/>
+                                                                                                                                                            <Annotation Term="Core.Description" String="{i18n>CountryCode.Description}"/>
+                                                                                                                                                            </Annotations>
+                                                                                                                                                            <Annotations Target="DealerService.Province/country_code">
+                                                                                                                                                                <Annotation Term="Common.Label" String="{i18n>Country}"/>
+                                                                                                                                                                    <Annotation Term="Common.ValueList">
+                                                                                                                                                                        <Record Type="Common.ValueListType">
+                                                                                                                                                                            <PropertyValue Property="Label" String="{i18n>Country}"/>
+                                                                                                                                                                                <PropertyValue Property="CollectionPath" String="Countries"/>
+                                                                                                                                                                                <PropertyValue Property="Parameters">
+                                                                                                                                                                                    <Collection>
+                                                                                                                                                                                        <Record Type="Common.ValueListParameterInOut">
+                                                                                                                                                                                            <PropertyValue Property="LocalDataProperty" PropertyPath="country_code"/>
+                                                                                                                                                                                            <PropertyValue Property="ValueListProperty" String="code"/>
+                                                                                                                                                                                        </Record>
+                                                                                                                                                                                        <Record Type="Common.ValueListParameterDisplayOnly">
+                                                                                                                                                                                            <PropertyValue Property="ValueListProperty" String="name"/>
+                                                                                                                                                                                        </Record>
+                                                                                                                                                                                    </Collection>
+                                                                                                                                                                                </PropertyValue>
+                                                                                                                                                                            </Record>
+                                                                                                                                                                        </Annotation>
+                                                                                                                                                                        <Annotation Term="Core.Description" String="{i18n>CountryCode.Description}"/>
+                                                                                                                                                                        </Annotations>
+                                                                                                                                                                        <Annotations Target="DealerService.Countries">
+                                                                                                                                                                            <Annotation Term="UI.Identification">
+                                                                                                                                                                                <Collection>
+                                                                                                                                                                                    <Record Type="UI.DataField">
+                                                                                                                                                                                        <PropertyValue Property="Value" Path="name"/>
+                                                                                                                                                                                    </Record>
+                                                                                                                                                                                </Collection>
+                                                                                                                                                                            </Annotation>
+                                                                                                                                                                        </Annotations>
+                                                                                                                                                                        <Annotations Target="DealerService.Countries/name">
+                                                                                                                                                                            <Annotation Term="Common.Label" String="{i18n>Name}"/>
+                                                                                                                                                                            </Annotations>
+                                                                                                                                                                            <Annotations Target="DealerService.Countries/descr">
+                                                                                                                                                                                <Annotation Term="Common.Label" String="{i18n>Description}"/>
+                                                                                                                                                                                </Annotations>
+                                                                                                                                                                                <Annotations Target="DealerService.Countries/code">
+                                                                                                                                                                                    <Annotation Term="Common.Text" Path="name"/>
+                                                                                                                                                                                    <Annotation Term="Common.Label" String="{i18n>CountryCode}"/>
+                                                                                                                                                                                    </Annotations>
+                                                                                                                                                                                    <Annotations Target="DealerService.Currencies">
+                                                                                                                                                                                        <Annotation Term="UI.Identification">
+                                                                                                                                                                                            <Collection>
+                                                                                                                                                                                                <Record Type="UI.DataField">
+                                                                                                                                                                                                    <PropertyValue Property="Value" Path="name"/>
+                                                                                                                                                                                                </Record>
+                                                                                                                                                                                            </Collection>
+                                                                                                                                                                                        </Annotation>
+                                                                                                                                                                                    </Annotations>
+                                                                                                                                                                                    <Annotations Target="DealerService.Currencies/name">
+                                                                                                                                                                                        <Annotation Term="Common.Label" String="{i18n>Name}"/>
+                                                                                                                                                                                        </Annotations>
+                                                                                                                                                                                        <Annotations Target="DealerService.Currencies/descr">
+                                                                                                                                                                                            <Annotation Term="Common.Label" String="{i18n>Description}"/>
+                                                                                                                                                                                            </Annotations>
+                                                                                                                                                                                            <Annotations Target="DealerService.Currencies/code">
+                                                                                                                                                                                                <Annotation Term="Common.Text" Path="name"/>
+                                                                                                                                                                                                <Annotation Term="Common.Label" String="{i18n>CurrencyCode}"/>
+                                                                                                                                                                                                </Annotations>
+                                                                                                                                                                                                <Annotations Target="DealerService.Currencies/symbol">
+                                                                                                                                                                                                    <Annotation Term="Common.Label" String="{i18n>CurrencySymbol}"/>
+                                                                                                                                                                                                    </Annotations>
+                                                                                                                                                                                                    <Annotations Target="DealerService.ESignOutputLog/createdAt">
+                                                                                                                                                                                                        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                                                                                                        <Annotation Term="Core.Immutable" Bool="true"/>
+                                                                                                                                                                                                        <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                                                                                        <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+                                                                                                                                                                                                        </Annotations>
+                                                                                                                                                                                                        <Annotations Target="DealerService.ESignOutputLog/createdBy">
+                                                                                                                                                                                                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                                                                                                            <Annotation Term="Core.Immutable" Bool="true"/>
+                                                                                                                                                                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                                                                                            <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                                                                                                                                                                                <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+                                                                                                                                                                                                                </Annotations>
+                                                                                                                                                                                                                <Annotations Target="DealerService.ESignOutputLog/modifiedAt">
+                                                                                                                                                                                                                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                                                                                                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                                                                                                    <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+                                                                                                                                                                                                                    </Annotations>
+                                                                                                                                                                                                                    <Annotations Target="DealerService.ESignOutputLog/modifiedBy">
+                                                                                                                                                                                                                        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                                                                                                                        <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                                                                                                        <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                                                                                                                                                                                            <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+                                                                                                                                                                                                                            </Annotations>
+                                                                                                                                                                                                                            <Annotations Target="DealerService.ESignOutputLog/ID">
+                                                                                                                                                                                                                                <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                                                                                                            </Annotations>
+                                                                                                                                                                                                                            <Annotations Target="DealerService.ESignOutputLog/status_ID">
+                                                                                                                                                                                                                                <Annotation Term="Common.ValueList">
+                                                                                                                                                                                                                                    <Record Type="Common.ValueListType">
+                                                                                                                                                                                                                                        <PropertyValue Property="Label" String="ESignStatus"/>
+                                                                                                                                                                                                                                        <PropertyValue Property="CollectionPath" String="ESignStatus"/>
+                                                                                                                                                                                                                                        <PropertyValue Property="Parameters">
+                                                                                                                                                                                                                                            <Collection>
+                                                                                                                                                                                                                                                <Record Type="Common.ValueListParameterInOut">
+                                                                                                                                                                                                                                                    <PropertyValue Property="LocalDataProperty" PropertyPath="status_ID"/>
+                                                                                                                                                                                                                                                    <PropertyValue Property="ValueListProperty" String="ID"/>
+                                                                                                                                                                                                                                                </Record>
+                                                                                                                                                                                                                                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                                                                                                                                                                                                                                    <PropertyValue Property="ValueListProperty" String="name"/>
+                                                                                                                                                                                                                                                </Record>
+                                                                                                                                                                                                                                            </Collection>
+                                                                                                                                                                                                                                        </PropertyValue>
+                                                                                                                                                                                                                                    </Record>
+                                                                                                                                                                                                                                </Annotation>
+                                                                                                                                                                                                                            </Annotations>
+                                                                                                                                                                                                                            <Annotations Target="DealerService.ESignStatus">
+                                                                                                                                                                                                                                <Annotation Term="UI.Identification">
+                                                                                                                                                                                                                                    <Collection>
+                                                                                                                                                                                                                                        <Record Type="UI.DataField">
+                                                                                                                                                                                                                                            <PropertyValue Property="Value" Path="name"/>
+                                                                                                                                                                                                                                        </Record>
+                                                                                                                                                                                                                                    </Collection>
+                                                                                                                                                                                                                                </Annotation>
+                                                                                                                                                                                                                            </Annotations>
+                                                                                                                                                                                                                            <Annotations Target="DealerService.ESignStatus/createdAt">
+                                                                                                                                                                                                                                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                                                                                                                                <Annotation Term="Core.Immutable" Bool="true"/>
+                                                                                                                                                                                                                                <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                                                                                                                <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+                                                                                                                                                                                                                                </Annotations>
+                                                                                                                                                                                                                                <Annotations Target="DealerService.ESignStatus/createdBy">
+                                                                                                                                                                                                                                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                                                                                                                                    <Annotation Term="Core.Immutable" Bool="true"/>
+                                                                                                                                                                                                                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                                                                                                                    <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                                                                                                                                                                                                        <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+                                                                                                                                                                                                                                        </Annotations>
+                                                                                                                                                                                                                                        <Annotations Target="DealerService.ESignStatus/modifiedAt">
+                                                                                                                                                                                                                                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                                                                                                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                                                                                                                            <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+                                                                                                                                                                                                                                            </Annotations>
+                                                                                                                                                                                                                                            <Annotations Target="DealerService.ESignStatus/modifiedBy">
+                                                                                                                                                                                                                                                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                                                                                                                                                <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                                                                                                                                <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                                                                                                                                                                                                                    <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+                                                                                                                                                                                                                                                    </Annotations>
+                                                                                                                                                                                                                                                    <Annotations Target="DealerService.ESignStatus/name">
+                                                                                                                                                                                                                                                        <Annotation Term="Common.Label" String="{i18n>Name}"/>
+                                                                                                                                                                                                                                                        </Annotations>
+                                                                                                                                                                                                                                                        <Annotations Target="DealerService.ESignStatus/descr">
+                                                                                                                                                                                                                                                            <Annotation Term="Common.Label" String="{i18n>Description}"/>
+                                                                                                                                                                                                                                                            </Annotations>
+                                                                                                                                                                                                                                                            <Annotations Target="DealerService.ESignStatus/ID">
+                                                                                                                                                                                                                                                                <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                                                                                                                                            </Annotations>
+                                                                                                                                                                                                                                                            <Annotations Target="DealerService.ESignStatus/eSignStatusID">
+                                                                                                                                                                                                                                                                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+                                                                                                                                                                                                                                                            </Annotations>
+                                                                                                                                                                                                                                                            <Annotations Target="DealerService.ESignStatus/documentStatus_ID">
+                                                                                                                                                                                                                                                                <Annotation Term="Common.ValueList">
+                                                                                                                                                                                                                                                                    <Record Type="Common.ValueListType">
+                                                                                                                                                                                                                                                                        <PropertyValue Property="Label" String="DocumentStatus"/>
+                                                                                                                                                                                                                                                                        <PropertyValue Property="CollectionPath" String="DocumentStatus"/>
+                                                                                                                                                                                                                                                                        <PropertyValue Property="Parameters">
+                                                                                                                                                                                                                                                                            <Collection>
+                                                                                                                                                                                                                                                                                <Record Type="Common.ValueListParameterInOut">
+                                                                                                                                                                                                                                                                                    <PropertyValue Property="LocalDataProperty" PropertyPath="documentStatus_ID"/>
+                                                                                                                                                                                                                                                                                    <PropertyValue Property="ValueListProperty" String="ID"/>
+                                                                                                                                                                                                                                                                                </Record>
+                                                                                                                                                                                                                                                                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                                                                                                                                                                                                                                                                    <PropertyValue Property="ValueListProperty" String="name"/>
+                                                                                                                                                                                                                                                                                </Record>
+                                                                                                                                                                                                                                                                            </Collection>
+                                                                                                                                                                                                                                                                        </PropertyValue>
+                                                                                                                                                                                                                                                                    </Record>
+                                                                                                                                                                                                                                                                </Annotation>
+                                                                                                                                                                                                                                                            </Annotations>
+                                                                                                                                                                                                                                                            <Annotations Target="DealerService.DocumentStatus_texts/locale">
+                                                                                                                                                                                                                                                                <Annotation Term="Common.Label" String="{i18n>LanguageCode}"/>
+                                                                                                                                                                                                                                                                </Annotations>
+                                                                                                                                                                                                                                                                <Annotations Target="DealerService.DocumentStatus_texts/name">
+                                                                                                                                                                                                                                                                    <Annotation Term="Common.Label" String="{i18n>Name}"/>
+                                                                                                                                                                                                                                                                    </Annotations>
+                                                                                                                                                                                                                                                                    <Annotations Target="DealerService.DocumentStatus_texts/descr">
+                                                                                                                                                                                                                                                                        <Annotation Term="Common.Label" String="{i18n>Description}"/>
+                                                                                                                                                                                                                                                                        </Annotations>
+                                                                                                                                                                                                                                                                        <Annotations Target="DealerService.DocumentStatus_texts/ID">
+                                                                                                                                                                                                                                                                            <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+                                                                                                                                                                                                                                                                        </Annotations>
+                                                                                                                                                                                                                                                                        <Annotations Target="DealerService.Province_texts/locale">
+                                                                                                                                                                                                                                                                            <Annotation Term="Common.Label" String="{i18n>LanguageCode}"/>
+                                                                                                                                                                                                                                                                            </Annotations>
+                                                                                                                                                                                                                                                                            <Annotations Target="DealerService.Province_texts/name">
+                                                                                                                                                                                                                                                                                <Annotation Term="Common.Label" String="{i18n>Name}"/>
+                                                                                                                                                                                                                                                                                </Annotations>
+                                                                                                                                                                                                                                                                                <Annotations Target="DealerService.Province_texts/descr">
+                                                                                                                                                                                                                                                                                    <Annotation Term="Common.Label" String="{i18n>Description}"/>
+                                                                                                                                                                                                                                                                                    </Annotations>
+                                                                                                                                                                                                                                                                                    <Annotations Target="DealerService.Province_texts/code">
+                                                                                                                                                                                                                                                                                        <Annotation Term="Common.Label" String="{i18n>provinceCode}"/>
+                                                                                                                                                                                                                                                                                            <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+                                                                                                                                                                                                                                                                                        </Annotations>
+                                                                                                                                                                                                                                                                                        <Annotations Target="DealerService.Countries_texts/locale">
+                                                                                                                                                                                                                                                                                            <Annotation Term="Common.Label" String="{i18n>LanguageCode}"/>
+                                                                                                                                                                                                                                                                                            </Annotations>
+                                                                                                                                                                                                                                                                                            <Annotations Target="DealerService.Countries_texts/name">
+                                                                                                                                                                                                                                                                                                <Annotation Term="Common.Label" String="{i18n>Name}"/>
+                                                                                                                                                                                                                                                                                                </Annotations>
+                                                                                                                                                                                                                                                                                                <Annotations Target="DealerService.Countries_texts/descr">
+                                                                                                                                                                                                                                                                                                    <Annotation Term="Common.Label" String="{i18n>Description}"/>
+                                                                                                                                                                                                                                                                                                    </Annotations>
+                                                                                                                                                                                                                                                                                                    <Annotations Target="DealerService.Countries_texts/code">
+                                                                                                                                                                                                                                                                                                        <Annotation Term="Common.Text" Path="name"/>
+                                                                                                                                                                                                                                                                                                        <Annotation Term="Common.Label" String="{i18n>CountryCode}"/>
+                                                                                                                                                                                                                                                                                                        </Annotations>
+                                                                                                                                                                                                                                                                                                        <Annotations Target="DealerService.Currencies_texts/locale">
+                                                                                                                                                                                                                                                                                                            <Annotation Term="Common.Label" String="{i18n>LanguageCode}"/>
+                                                                                                                                                                                                                                                                                                            </Annotations>
+                                                                                                                                                                                                                                                                                                            <Annotations Target="DealerService.Currencies_texts/name">
+                                                                                                                                                                                                                                                                                                                <Annotation Term="Common.Label" String="{i18n>Name}"/>
+                                                                                                                                                                                                                                                                                                                </Annotations>
+                                                                                                                                                                                                                                                                                                                <Annotations Target="DealerService.Currencies_texts/descr">
+                                                                                                                                                                                                                                                                                                                    <Annotation Term="Common.Label" String="{i18n>Description}"/>
+                                                                                                                                                                                                                                                                                                                    </Annotations>
+                                                                                                                                                                                                                                                                                                                    <Annotations Target="DealerService.Currencies_texts/code">
+                                                                                                                                                                                                                                                                                                                        <Annotation Term="Common.Text" Path="name"/>
+                                                                                                                                                                                                                                                                                                                        <Annotation Term="Common.Label" String="{i18n>CurrencyCode}"/>
+                                                                                                                                                                                                                                                                                                                        </Annotations>
+                                                                                                                                                                                                                                                                                                                        <Annotations Target="DealerService.ESignStatus_texts/locale">
+                                                                                                                                                                                                                                                                                                                            <Annotation Term="Common.Label" String="{i18n>LanguageCode}"/>
+                                                                                                                                                                                                                                                                                                                            </Annotations>
+                                                                                                                                                                                                                                                                                                                            <Annotations Target="DealerService.ESignStatus_texts/name">
+                                                                                                                                                                                                                                                                                                                                <Annotation Term="Common.Label" String="{i18n>Name}"/>
+                                                                                                                                                                                                                                                                                                                                </Annotations>
+                                                                                                                                                                                                                                                                                                                                <Annotations Target="DealerService.ESignStatus_texts/descr">
+                                                                                                                                                                                                                                                                                                                                    <Annotation Term="Common.Label" String="{i18n>Description}"/>
+                                                                                                                                                                                                                                                                                                                                    </Annotations>
+                                                                                                                                                                                                                                                                                                                                    <Annotations Target="DealerService.ESignStatus_texts/ID">
+                                                                                                                                                                                                                                                                                                                                        <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                                                                                                                                                                                                                                                    </Annotations>
+                                                                                                                                                                                                                                                                                                                                </Schema>
+                                                                                                                                                                                                                                                                                                                            </edmx:DataServices>
+                                                                                                                                                                                                                                                                                                                        </edmx:Edmx>
