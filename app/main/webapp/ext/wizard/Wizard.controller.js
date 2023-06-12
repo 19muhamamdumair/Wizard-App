@@ -31,7 +31,40 @@ sap.ui.define([
 			this._setEmptyValue("/manufacturingDate");
 			this._setEmptyValue("/discountGroup");
 
+
+
+			// this.getView().bindElement({
+			// 	path: "/DealerHeaders/" + "3a331d16-b5a4-4e30-b716-c57821f39999"
+			// });
+
+			// this.getAppComponent().getRouter().getRoute("wizard");
+			// var oOwnerComponent = this.getAppComponent();
+
+			// this.oRouter = oOwnerComponent.getRouter();
+			// this.oModel = oOwnerComponent.getModel();
+
+			// this.oRouter.getRoute("wizard").attachPatternMatched(this._onProductMatched, this);
+
 		},
+
+		// onInit: function () {
+		// 	PageController.prototype.onInit.apply(this,arguments);
+		// 	this.getAppComponent().getRouter().getRoute("list");
+		// 	var oOwnerComponent = this.getAppComponent();
+
+		// 	this.oRouter = oOwnerComponent.getRouter();
+		// 	this.oModel = oOwnerComponent.getModel();
+
+		// 	this.oRouter.getRoute("detail").attachPatternMatched(this._onProductMatched, this);
+		// },
+
+
+		// _onProductMatched: function (oEvent) {
+		// 	this._key = oEvent.getParameter("arguments").key || this._key || "0";
+		// 	this.getView().bindElement({
+		// 		path: "/Books/" + "3a331d16-b5a4-4e30-b716-c57821f39999"
+		// 	});
+		// },
 
 		setProductType: function (evt) {
 			var productType = evt.getSource().getTitle();

@@ -53,9 +53,29 @@
 					<subSections>
 					<ObjectPageSubSection id="personalSectionSS1" title="Address" titleUppercase="false">
 						<blocks>
-							<personal:BlockPhoneNumber id="phone"/>
-							<personal:BlockSocial id="social"/>
-							<personal:BlockMailing id="mailing" columnLayout="1"/>
+							<m:Panel id="primaryPanel" binding="{path:'/DealerHeaders(ID=3a331d16-b5a4-4e30-b716-c57821f39999,IsActiveEntity=true)'}">
+									<macros:Form metaPath="/DealerHeaders/@com.sap.vocabularies.UI.v1.FieldGroup#PrimaryAddress" id="primForm" title="Primary Address">
+									
+										<macros:layout type="ColumnLayout" columnsM="1" singleContainerFullSize="false" labelSpanM="6" />
+									
+									 </macros:Form>
+							</m:Panel>
+							<m:Panel id="secPanel" binding="{path:'/DealerHeaders(ID=3a331d16-b5a4-4e30-b716-c57821f39999,IsActiveEntity=true)'}">
+									<macros:Form metaPath="/DealerHeaders/@com.sap.vocabularies.UI.v1.FieldGroup#SecondaryAddress" id="secForm" title="Secondary Address">
+									
+										<macros:layout type="ColumnLayout" columnsM="1" singleContainerFullSize="false" labelSpanM="6" />
+									
+									 </macros:Form>
+							</m:Panel>
+							<m:Panel id="servicePanel" binding="{path:'/DealerHeaders(ID=3a331d16-b5a4-4e30-b716-c57821f39999,IsActiveEntity=true)'}">
+									<macros:Form metaPath="/DealerHeaders/@com.sap.vocabularies.UI.v1.FieldGroup#ServiceAddress" id="serForm" title="Service Address">
+									
+										<macros:layout type="ColumnLayout" columnsM="1" singleContainerFullSize="false" labelSpanM="6" />
+									
+									 </macros:Form>
+							</m:Panel>
+							<!-- <personal:SecondaryAddress id="social"/>
+							<personal:ServiceAddress id="mailing" columnLayout="1"/> -->
 						</blocks>
 
                         <form:SimpleForm

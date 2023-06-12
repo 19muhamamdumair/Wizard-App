@@ -131,6 +131,7 @@ context CustomerContract {
         totalCost          : common.TotalCostT;
         oMAnnualCost       : common.CostT; //preserve it for ref, Multiply it with qty .
         productCategory_ID : common.ProductCategoryIDT;
+        SerialNo           :common.SerialNoT;
 
   //remove
   // itemID             : Integer; //common.itemIDT;

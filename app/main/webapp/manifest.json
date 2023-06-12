@@ -5,7 +5,7 @@
         "type": "application",
         "i18n": "i18n/i18n.properties",
         "applicationVersion": {
-            "version": "0.53.1"
+            "version": "0.68.1"
         },
         "title": "{{appTitle}}",
         "description": "{{appDescription}}",
@@ -102,7 +102,7 @@
             "routes": [
                 {
                     "name": "DealerHeadersMain",
-                    "pattern": ":?query:",
+                    "pattern": "DealerHeaders({key}):?query:",
                     "target": "Wizard"
                 }
             ],

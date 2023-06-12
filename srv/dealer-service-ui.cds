@@ -51,13 +51,43 @@ annotate service.DealerHeaders with @(UI : {
     Facets                : [
         {
             $Type  : 'UI.ReferenceFacet',
-            Label  : 'Basic Info',
-            Target : '@UI.FieldGroup#BasicInfo'
+            Label  : 'Primary Info',
+            Target : '@UI.FieldGroup#PrimaryAddress'
+        },
+        {
+            $Type  : 'UI.ReferenceFacet',
+            Label  : 'Secondary Info',
+            Target : '@UI.FieldGroup#SecondaryAddress'
+        },
+         {
+            $Type  : 'UI.ReferenceFacet',
+            Label  : 'Service Info',
+            Target : '@UI.FieldGroup#ServiceAddress'
         },
     ],
-    FieldGroup #BasicInfo : {Data : [
-        { $Type : 'UI.DataField', Label : 'ID',Value : ID},
-        { $Type : 'UI.DataField', Label : 'Contract ID',Value : contractID}
+    FieldGroup #PrimaryAddress : {Data : [
+        { $Type : 'UI.DataField', Label : 'Title',Value : primaryCustomerTitle},
+        { $Type : 'UI.DataField', Label : 'First Name',Value : primaryCustomerFirstName},
+         { $Type : 'UI.DataField', Label : 'Last Name',Value : primaryCustomerLastName},
+        { $Type : 'UI.DataField', Label : 'Email',Value : primaryCustomerEmail}
+    ]},
+    FieldGroup #SecondaryAddress : {Data : [
+        { $Type : 'UI.DataField', Label : 'Title',Value : secondaryCustomerTitle},
+        { $Type : 'UI.DataField', Label : 'First Name',Value : secondaryCustomerFirstName},
+         { $Type : 'UI.DataField', Label : 'Last Name',Value : secondaryCustomerLastName},
+        { $Type : 'UI.DataField', Label : 'Email',Value : secondaryCustomerEmail}
+    ]},
+    FieldGroup #ServiceAddress : {Data : [
+        { $Type : 'UI.DataField', Label : 'House No',Value : serviceHouseNumber},
+        { $Type : 'UI.DataField', Label : 'Street',Value : serviceStreetName},
+        { $Type : 'UI.DataField', Label : 'Unit No',Value : serviceUnitNumber},
+        { $Type : 'UI.DataField', Label : 'City',Value : serviceCity},
+        { $Type : 'UI.DataField', Label : 'Province',Value : serviceProvince_code},
+        { $Type : 'UI.DataField', Label : 'Postal Code',Value : servicePostalCode},
+        { $Type : 'UI.DataField', Label : 'Country',Value : serviceCountry_code},
+        { $Type : 'UI.DataField', Label : 'Phone',Value : servicePhone},
+
+
     ]},
     
 
@@ -79,6 +109,15 @@ annotate service.Items with @(
             Label : 'Category',
             Value : productCategory_ID,
         },
+         {
+            $Type : 'UI.DataField',
+            Label : 'Make',
+            Value : product.make,
+        }, {
+            $Type : 'UI.DataField',
+            Label : 'Model',
+            Value : product.model,
+        },
         {
             $Type : 'UI.DataField',
             Label : 'Description',
@@ -88,6 +127,11 @@ annotate service.Items with @(
             $Type : 'UI.DataField',
             Label : 'Quantity',
             Value : qty,
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'Serial No',
+            Value : SerialNo,
         }
     ]
 );
