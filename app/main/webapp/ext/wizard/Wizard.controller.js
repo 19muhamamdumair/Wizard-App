@@ -19,23 +19,13 @@ sap.ui.define([
 				lastNameState: "Error"
 			});
 			this.getView().setModel(this.model,"mymodel");
-			this.getModel("mymodel").setProperty("/productType", "Mobile");
-			this.getModel("mymodel").setProperty("/availabilityType", "In Store");
-			this.getModel("mymodel").setProperty("/navApiEnabled", true);
-			this.getModel("mymodel").setProperty("/productVAT", false);
-			this.getModel("mymodel").setProperty("/measurement", "");
-			this._setEmptyValue("/productManufacturer");
-			this._setEmptyValue("/productDescription");
-			this._setEmptyValue("/size");
-			this._setEmptyValue("/productPrice");
-			this._setEmptyValue("/manufacturingDate");
-			this._setEmptyValue("/discountGroup");
+			
 
 
 
-			// this.getView().bindElement({
-			// 	path: "/DealerHeaders/" + "3a331d16-b5a4-4e30-b716-c57821f39999"
-			// });
+			this.getView().bindElement({
+				path: "/DealerHeaders" + "(ID=03c51370-7044-4d2b-868f-38012df74cc8,IsActiveEntity=true)"
+			});
 
 			// this.getAppComponent().getRouter().getRoute("wizard");
 			// var oOwnerComponent = this.getAppComponent();
@@ -47,51 +37,24 @@ sap.ui.define([
 
 		},
 
-		// onInit: function () {
-		// 	PageController.prototype.onInit.apply(this,arguments);
-		// 	this.getAppComponent().getRouter().getRoute("list");
-		// 	var oOwnerComponent = this.getAppComponent();
-
-		// 	this.oRouter = oOwnerComponent.getRouter();
-		// 	this.oModel = oOwnerComponent.getModel();
-
-		// 	this.oRouter.getRoute("detail").attachPatternMatched(this._onProductMatched, this);
-		// },
-
-
-		// _onProductMatched: function (oEvent) {
-		// 	this._key = oEvent.getParameter("arguments").key || this._key || "0";
-		// 	this.getView().bindElement({
-		// 		path: "/Books/" + "3a331d16-b5a4-4e30-b716-c57821f39999"
-		// 	});
-		// },
-
-		setProductType: function (evt) {
-			var productType = evt.getSource().getTitle();
-			this.getModel("mymodel").setProperty("/productType", productType);
-			this.byId("ProductStepChosenType").setText("Chosen product type: " + productType);
-			this._wizard.validateStep(this.byId("ProductTypeStep"));
+		changeDate:function(){
+			var completionDate = this.byId("completionDate").getValue();
+			this.getModel("mymodel").setProperty("/completionDate",completionDate);
 		},
 
-		setProductTypeFromSegmented: function (evt) {
-			var productType = evt.getParameters().item.getText();
-			this.getModel("mymodel").setProperty("/productType", productType);
-			this._wizard.validateStep(this.byId("ProductTypeStep"));
-		},
 
-		completionDateChange: function() {
-			var cDate = this.byId("completionDate").getValue();
+		
 
-		},
+	
 
 		additionalInfoValidation: function () {
 			var fname = this.byId("fname").getValue();
 			var lname = this.byId("lname").getValue();
 
-			this.getModel("mymodel").setProperty("/completionDateState", "None");
+		
 
 			// if (isNaN(lname)) {
-			// 	this._wizard.setCurrentStep(this.byId("ProductInfoStep"));
+			// 	this._wizard.setCurrentStep(this.byId("CustomerStep"));
 			// 	this.getModel("mymodel").setProperty("/lastNameState", "Error");
 			// } else {
 			// 	this.getModel("mymodel").setProperty("/lastNameState", "None");
@@ -100,85 +63,31 @@ sap.ui.define([
             
 
 			if (fname.length < 6) {
-				this._wizard.setCurrentStep(this.byId("ProductInfoStep"));
+				this._wizard.setCurrentStep(this.byId("CustomerStep"));
 				this.getModel("mymodel").setProperty("/firstNameState", "Error");
 			} else {
 				this.getModel("mymodel").setProperty("/firstNameState", "None");
 			}
 
             if (lname.length < 6) {
-				this._wizard.setCurrentStep(this.byId("ProductInfoStep"));
+				this._wizard.setCurrentStep(this.byId("CustomerStep"));
 				this.getModel("mymodel").setProperty("/lastNameState", "Error");
 			} else {
 				this.getModel("mymodel").setProperty("/lastNameState", "None");
 			}
 
 			if (fname.length < 6 || lname.length < 6) {
-				this._wizard.invalidateStep(this.byId("ProductInfoStep"));
+				this._wizard.invalidateStep(this.byId("CustomerStep"));
 			} else {
-				this._wizard.validateStep(this.byId("ProductInfoStep"));
+				this.getModel("mymodel").setProperty("/firstNameValue",fname);
+				this.getModel("mymodel").setProperty("/lastNameValue",lname);
+				this._wizard.validateStep(this.byId("CustomerStep"));
 			}
 		},
 
-		optionalStepActivation: function () {
-			MessageToast.show(
-				'This event is fired on activate of Step3.'
-			);
-		},
+		
 
-		optionalStepCompletion: function () {
-			MessageToast.show(
-				'This event is fired on complete of Step3. You can use it to gather the information, and lock the input data.'
-			);
-		},
-
-		pricingActivate: function () {
-			this.getModel("mymodel").setProperty("/navApiEnabled", true);
-		},
-
-		pricingComplete: function () {
-			this.getModel("mymodel").setProperty("/navApiEnabled", false);
-		},
-
-		scrollFrom4to2: function () {
-			this._wizard.goToStep(this.byId("ProductTypeStep"));
-		},
-
-		goFrom4to3: function () {
-			if (this._wizard.getProgressStep() === this.byId("dealer")) {
-				this._wizard.previousStep();
-			}
-		},
-
-		goFrom4to5: function () {
-			if (this._wizard.getProgressStep() === this.byId("dealer")) {
-				this._wizard.nextStep();
-			}
-		},
-
-		wizardCompletedHandler: function () {
-			this._oNavContainer.to(this.byId("wizardReviewPage"));
-		},
-
-		backToWizardContent: function () {
-			this._oNavContainer.backToPage(this._oWizardContentPage.getId());
-		},
-
-		editStepOne: function () {
-			this._handleNavigationToStep(0);
-		},
-
-		editStepTwo: function () {
-			this._handleNavigationToStep(1);
-		},
-
-		editStepThree: function () {
-			this._handleNavigationToStep(2);
-		},
-
-		editStepFour: function () {
-			this._handleNavigationToStep(3);
-		},
+		
 
 		_handleNavigationToStep: function (iStepNumber) {
 			var fnAfterNavigate = function () {
@@ -236,7 +145,67 @@ sap.ui.define([
 			this.getModel("mymodel").setProperty("/lastNameState", "Error");
 			this.getModel("mymodel").setProperty("/firstNameState", "Error");
 			clearContent(this._wizard.getSteps());
-		}
+		},
+		wizardCompletedHandler: function (oView) {
+			console.log(oView);
+			var data=oView.getSource().getBindingContext().getObject()
+			var installerData=this.getModel("mymodel").getData()
+			var itemsData = {
+                "ID": data.ID,
+                "a": data.a,
+                "b": data.b,
+                "c": data.c,
+                "d": data.d,
+                "e": data.e,
+                "f": data.f,
+                "g": data.g,
+                "h": data.h,
+                "i": data.i,
+                "j": data.j,
+                "k": data.k,
+                "dealerBPID": data.dealerBPID,
+                "primaryCustomerEmail": data.primaryCustomerEmail,
+                "primaryCustomerFirstName": data.primaryCustomerFirstName,
+                "primaryCustomerLastName": data.primaryCustomerLastName,
+                "primaryCustomerTitle": data.primaryCustomerTitle,
+				"secondaryCustomerEmail": data.secondaryCustomerEmail,
+                "secondaryCustomerFirstName": data.secondaryCustomerFirstName,
+                "secondaryCustomerLastName": data.secondaryCustomerLastName,
+                "secondaryCustomerTitle": data.secondaryCustomerTitle,
+                "serviceCity": data.serviceCity,
+                "serviceCountry_code": data.serviceCountry_code,
+                "serviceHouseNumber": data.serviceHouseNumber,
+                "servicePhone": data.servicePhone,
+                "servicePostalCode": data.servicePostalCode,
+                "serviceProvince_code": data.serviceProvince_code,
+                "serviceStreetName": data.serviceStreetName,
+                "serviceUnitNumber": data.serviceUnitNumber,
+				"workCompletionDate":installerData.completionDate ?installerData.completionDate:'',
+                "installerFirstName":installerData.firstNameValue,
+				"installerLastName":installerData.lastNameValue,
+
+
+
+
+            };
+
+            const oBindListItems = oModel.bindList("/CustomerCompletionCertificateHeaders");
+            var oDataCreate = oBindListItems.create(oBindListItems);
+
+			var oEventBus = this.getAppComponent().getEventBus();
+
+
+            oDataCreate.created().then(function () {
+				//call method in cart controller using event bus
+				MessageBox.show(" Data Inserted");
+				
+            }, function (oError) {
+                console.error("Error inserting Data in Cart")
+            });
+
+			// this.getView().byId("primForm").getBind("")
+			
+		},
 	});
 });
 
@@ -289,7 +258,7 @@ sap.ui.define([
 // 			var lname = this.byId("lname").getValue();
 
 // 			// if (isNaN(lname)) {
-// 			// 	this._wizard.setCurrentStep(this.byId("ProductInfoStep"));
+// 			// 	this._wizard.setCurrentStep(this.byId("CustomerStep"));
 // 			// 	this.getModel("mymodel").setProperty("/lastNameState", "Error");
 // 			// } else {
 // 			// 	this.getModel("mymodel").setProperty("/lastNameState", "None");
@@ -298,23 +267,23 @@ sap.ui.define([
             
 
 // 			if (fname.length < 6) {
-// 				this._wizard.setCurrentStep(this.byId("ProductInfoStep"));
+// 				this._wizard.setCurrentStep(this.byId("CustomerStep"));
 // 				this.getModel("mymodel").setProperty("/firstNameState", "Error");
 // 			} else {
 // 				this.getModel("mymodel").setProperty("/firstNameState", "None");
 // 			}
 
 //             if (lname.length < 6) {
-// 				this._wizard.setCurrentStep(this.byId("ProductInfoStep"));
+// 				this._wizard.setCurrentStep(this.byId("CustomerStep"));
 // 				this.getModel("mymodel").setProperty("/lastNameState", "Error");
 // 			} else {
 // 				this.getModel("mymodel").setProperty("/lastNameState", "None");
 // 			}
 
 // 			if (fname.length < 6 || lname.length < 6) {
-// 				this._wizard.invalidateStep(this.byId("ProductInfoStep"));
+// 				this._wizard.invalidateStep(this.byId("CustomerStep"));
 // 			} else {
-// 				this._wizard.validateStep(this.byId("ProductInfoStep"));
+// 				this._wizard.validateStep(this.byId("CustomerStep"));
 // 			}
 // 		},
                 

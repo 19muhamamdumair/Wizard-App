@@ -5,6 +5,7 @@ annotate service.DealerHeaders with {
 	contractType        @title: 'Type';
 	status       @title: 'Status';
 	statusDate        @title: 'Status Date';
+    productCategory @title : 'Products'
 }
 
 annotate service.DealerHeaders with @(
@@ -64,6 +65,21 @@ annotate service.DealerHeaders with @(UI : {
             Label  : 'Service Info',
             Target : '@UI.FieldGroup#ServiceAddress'
         },
+        {
+            $Type  : 'UI.ReferenceFacet',
+            Label  : 'Dealer Info',
+            Target : '@UI.FieldGroup#DealerBasic'
+        },
+        {
+            $Type  : 'UI.ReferenceFacet',
+            Label  : 'Address',
+            Target : '@UI.FieldGroup#DealerAddress'
+        },
+        {
+            $Type  : 'UI.ReferenceFacet',
+            Label  : 'Contact',
+            Target : '@UI.FieldGroup#DealerContact'
+        }
     ],
     FieldGroup #PrimaryAddress : {Data : [
         { $Type : 'UI.DataField', Label : 'Title',Value : primaryCustomerTitle},
@@ -87,6 +103,26 @@ annotate service.DealerHeaders with @(UI : {
         { $Type : 'UI.DataField', Label : 'Country',Value : serviceCountry_code},
         { $Type : 'UI.DataField', Label : 'Phone',Value : servicePhone},
 
+
+    ]},
+    FieldGroup #DealerBasic : {Data : [
+        { $Type : 'UI.DataField', Label : 'Dealer ID',Value : dealerBPID}
+    ]},
+    FieldGroup #DealerAddress : {Data : [
+        { $Type : 'UI.DataField', Label : 'House No',Value : b},
+        { $Type : 'UI.DataField', Label : 'Street',Value : c},
+        { $Type : 'UI.DataField', Label : 'City',Value : d},
+        { $Type : 'UI.DataField', Label : 'Comapny Name',Value : a},
+        { $Type : 'UI.DataField', Label : 'Postal Code',Value : e},
+        { $Type : 'UI.DataField', Label : 'Province/State',Value : f},
+        { $Type : 'UI.DataField', Label : 'Country',Value : g}
+    ]},
+
+     FieldGroup #DealerContact : {Data : [
+        { $Type : 'UI.DataField', Label : 'Title',Value : h},
+        { $Type : 'UI.DataField', Label : 'Name',Value : i},
+        { $Type : 'UI.DataField', Label : 'Email',Value : j},
+        { $Type : 'UI.DataField', Label : 'Phone',Value : k},
 
     ]},
     
