@@ -24,7 +24,7 @@ sap.ui.define([
 
 
 			this.getView().bindElement({
-				path: "/DealerHeaders" + "(ID=03c51370-7044-4d2b-868f-38012df74cc8,IsActiveEntity=true)"
+				path: "/DealerHeaders" + "(ID=03c51370-7044-4d2b-868f-38012df74cc8)"
 			});
 
 			// this.getAppComponent().getRouter().getRoute("wizard");
@@ -44,12 +44,33 @@ sap.ui.define([
 
 
 		
+		changeSerialNo:function () {
+				var sId=this.byId("sNo").getValue();
+				this.getModel("mymodel").setProperty("/serialNo",sId);
 
+		},
+		changeDate:function () {
+			var cDate=this.byId("completionDate").getValue();
+			this.getModel("mymodel").setProperty("/completionDate",cDate);
+
+	},
 	
 
 		additionalInfoValidation: function () {
 			var fname = this.byId("fname").getValue();
 			var lname = this.byId("lname").getValue();
+			var completionDate = this.byId("completionDate").getValue();
+
+			if(completionDate)
+			{
+				var d=completionDate.split("/")
+				var newDate=new Date(d[2] + '/' + d[1] + '/' + d[0]);
+				newDate=newDate.toISOString().slice(0,10);
+				this.getModel("mymodel").setProperty("/completionDate",newDate);
+
+				console.log(newDate);
+			}
+
 
 		
 
@@ -62,27 +83,33 @@ sap.ui.define([
 
             
 
-			if (fname.length < 6) {
-				this._wizard.setCurrentStep(this.byId("CustomerStep"));
-				this.getModel("mymodel").setProperty("/firstNameState", "Error");
-			} else {
-				this.getModel("mymodel").setProperty("/firstNameState", "None");
-			}
+			// if (fname.length < 6) {
+			// 	this._wizard.setCurrentStep(this.byId("CustomerStep"));
+			// 	this.getModel("mymodel").setProperty("/firstNameState", "Error");
+			// } else {
+			// 	this.getModel("mymodel").setProperty("/firstNameState", "None");
+			// }
 
-            if (lname.length < 6) {
-				this._wizard.setCurrentStep(this.byId("CustomerStep"));
-				this.getModel("mymodel").setProperty("/lastNameState", "Error");
-			} else {
-				this.getModel("mymodel").setProperty("/lastNameState", "None");
-			}
+            // if (lname.length < 6) {
+			// 	this._wizard.setCurrentStep(this.byId("CustomerStep"));
+			// 	this.getModel("mymodel").setProperty("/lastNameState", "Error");
+			// } else {
+			// 	this.getModel("mymodel").setProperty("/lastNameState", "None");
+			// }
 
-			if (fname.length < 6 || lname.length < 6) {
-				this._wizard.invalidateStep(this.byId("CustomerStep"));
-			} else {
-				this.getModel("mymodel").setProperty("/firstNameValue",fname);
-				this.getModel("mymodel").setProperty("/lastNameValue",lname);
-				this._wizard.validateStep(this.byId("CustomerStep"));
-			}
+			
+
+			this.getModel("mymodel").setProperty("/firstNameValue",fname);
+			this.getModel("mymodel").setProperty("/lastNameValue",lname);
+
+
+			// if (fname.length < 6 || lname.length < 6) {
+			// 	this._wizard.invalidateStep(this.byId("CustomerStep"));
+			// } else {
+			// 	this.getModel("mymodel").setProperty("/firstNameValue",fname);
+			// 	this.getModel("mymodel").setProperty("/lastNameValue",lname);
+			// 	this._wizard.validateStep(this.byId("CustomerStep"));
+			// }
 		},
 
 		
@@ -146,12 +173,17 @@ sap.ui.define([
 			this.getModel("mymodel").setProperty("/firstNameState", "Error");
 			clearContent(this._wizard.getSteps());
 		},
-		wizardCompletedHandler: function (oView) {
+		wizardCompletedHandler: async function (oView) {
 			console.log(oView);
+
+			const oModel=this.getModel();
+
+			var certID;
+			
 			var data=oView.getSource().getBindingContext().getObject()
-			var installerData=this.getModel("mymodel").getData()
+			var modelData=this.getModel("mymodel").getData()
 			var itemsData = {
-                "ID": data.ID,
+                // "ID": data.ID,
                 "a": data.a,
                 "b": data.b,
                 "c": data.c,
@@ -180,32 +212,77 @@ sap.ui.define([
                 "serviceProvince_code": data.serviceProvince_code,
                 "serviceStreetName": data.serviceStreetName,
                 "serviceUnitNumber": data.serviceUnitNumber,
-				"workCompletionDate":installerData.completionDate ?installerData.completionDate:'',
-                "installerFirstName":installerData.firstNameValue,
-				"installerLastName":installerData.lastNameValue,
-
-
-
-
+				"workCompletionDate":modelData.completionDate,
+                "installerFirstName":modelData.firstNameValue,
+				"installerLastName":modelData.lastNameValue,
             };
 
-            const oBindListItems = oModel.bindList("/CustomerCompletionCertificateHeaders");
-            var oDataCreate = oBindListItems.create(oBindListItems);
 
-			var oEventBus = this.getAppComponent().getEventBus();
+            const oBindListHeaders = oModel.bindList("/CustomerCompletionCertificateHeaders");
+            var oDataCreateHeaders = oBindListHeaders.create(itemsData);
 
+			
 
-            oDataCreate.created().then(function () {
+            await oDataCreateHeaders.created().then(function () {
+				certID = oDataCreateHeaders.getProperty("ID");
 				//call method in cart controller using event bus
 				MessageBox.show(" Data Inserted");
 				
             }, function (oError) {
-                console.error("Error inserting Data in Cart")
-            });
+                console.error("Error inserting Data in Headers")
+            })
 
-			// this.getView().byId("primForm").getBind("")
+
+
+
+
+			const oListBinding = oModel.bindList("/Items");
+
+			await oListBinding.requestContexts().then((items)=> {
+
+				const iCrewEmpCount = items.length;
+	
+				if(iCrewEmpCount === 0) {
+					fnTimesheetEmpCreateResolve();
+				} else {
+					items.forEach(function (item) {
+						const certificateItem = item.getObject();
+
+						var data={
+							"certificate_ID":certID,
+							"product_ID":certificateItem.product_ID,
+							"descr":certificateItem.descr,
+							"SerialNo":modelData.serialNo,
+							"qty":certificateItem.qty
+						}
+
+						const oBindListItems = oModel.bindList("/CustomerCompletionCertificateItems");
+						var oDataCreate = oBindListItems.create(data);
+			
+						
+			
+						oDataCreate.created().then(function () {
+							//call method in cart controller using event bus
+							MessageBox.show(" Data Inserted in Items");
+							
+						}, function (oError) {
+							console.error("Error inserting Data in Items")
+						})
+		
+					})
+				}
+			}, function (oError) {
+                console.error(oError);
+                // fnTimesheetEmpCreateReject();
+        }).catch(err=>{
+			console.log(err)
+		});
+
 			
 		},
+
+
+		
 	});
 });
 

@@ -5,7 +5,7 @@
         "type": "application",
         "i18n": "i18n/i18n.properties",
         "applicationVersion": {
-            "version": "0.99.1"
+            "version": "0.135.1"
         },
         "title": "{{appTitle}}",
         "description": "{{appDescription}}",
@@ -114,7 +114,28 @@
                     "options": {
                         "settings": {                          
                             "viewName":"main.ext.wizard.Wizard",
-                            "entitySet": "DealerHeaders"
+                            "entitySet": "Items",
+                            "controlConfiguration": {
+                                "@com.sap.vocabularies.UI.v1.LineItem": {
+                                    "columns": {
+                                        "CustomColumnRating": {
+                                            "header": "Serial No",
+                                            "width": "10em",
+                                            "importance": "High",
+                                            "horizontalAlign": "Center",
+                                            "position": {
+                                                "placement": "After",
+                                                "anchor": "qty"
+                                            },
+                                            "template": "main.ext.fragments.SerialNoField",
+                                            "availability": "Default",
+                                            "properties": [
+                                                "ID"
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
                         }
                     },
                     "title": "Wizard Page",

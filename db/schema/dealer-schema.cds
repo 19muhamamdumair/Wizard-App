@@ -131,7 +131,7 @@ context CustomerContract {
         totalCost          : common.TotalCostT;
         oMAnnualCost       : common.CostT; //preserve it for ref, Multiply it with qty .
         productCategory_ID : common.ProductCategoryIDT;
-        SerialNo           :common.SerialNoT;
+        // SerialNo           :common.SerialNoT;
 
   //remove
   // itemID             : Integer; //common.itemIDT;
@@ -232,7 +232,8 @@ context CustomerCompletionCertificate {
 
   @assert.unique: {uniqueIndex: [
     certificate,
-    product
+    product,
+    SerialNo
   ]}
   entity Items : managed {
     key ID          : UUID                           @(Core.Computed: true);
