@@ -19,6 +19,7 @@ sap.ui.define([
 				lastNameState: "Error"
 			});
 			this.getView().setModel(this.model,"mymodel");
+			sap.ui.getCore().setModel(this.model);
 			
 
 
@@ -35,16 +36,22 @@ sap.ui.define([
 
 			// this.oRouter.getRoute("wizard").attachPatternMatched(this._onProductMatched, this);
 
+
+			
+
+			
+
 		},
 
-		changeDate:function(){
-			var completionDate = this.byId("completionDate").getValue();
-			this.getModel("mymodel").setProperty("/completionDate",completionDate);
-		},
+
 
 
 		
 		changeSerialNo:function () {
+
+
+			
+
 				var sId=this.byId("sNo").getValue();
 				this.getModel("mymodel").setProperty("/serialNo",sId);
 
@@ -52,8 +59,7 @@ sap.ui.define([
 		changeDate:function () {
 			var cDate=this.byId("completionDate").getValue();
 			this.getModel("mymodel").setProperty("/completionDate",cDate);
-
-	},
+		},
 	
 
 		additionalInfoValidation: function () {
@@ -69,7 +75,10 @@ sap.ui.define([
 				this.getModel("mymodel").setProperty("/completionDate",newDate);
 
 				console.log(newDate);
+			
 			}
+
+			
 
 
 		
@@ -116,16 +125,7 @@ sap.ui.define([
 
 		
 
-		_handleNavigationToStep: function (iStepNumber) {
-			var fnAfterNavigate = function () {
-				this._wizard.goToStep(this._wizard.getSteps()[iStepNumber]);
-				this._oNavContainer.detachAfterNavigate(fnAfterNavigate);
-			}.bind(this);
-
-			this._oNavContainer.attachAfterNavigate(fnAfterNavigate);
-			this.backToWizardContent();
-		},
-
+	
 		_handleMessageBoxOpen: function (sMessage, sMessageBoxType) {
 			MessageBox[sMessageBoxType](sMessage, {
 				actions: [MessageBox.Action.YES, MessageBox.Action.NO],
@@ -173,7 +173,46 @@ sap.ui.define([
 			this.getModel("mymodel").setProperty("/firstNameState", "Error");
 			clearContent(this._wizard.getSteps());
 		},
-		wizardCompletedHandler: async function (oView) {
+
+		wizardCompletedHandler: function () {
+
+			var oEntry = this.getView().getBindingContext().getObject()
+			sap.ui.getCore().setModel(this.getModel("mymodel"));
+
+			this.routing.navigateToRoute("WizardReview")
+			// this._oNavContainer.to(this.byId("wizardReviewPage"));
+		},
+
+		editStepOne: function () {
+			this._handleNavigationToStep(0);
+		},
+
+		editStepTwo: function () {
+			this._handleNavigationToStep(1);
+		},
+
+		editStepThree: function () {
+			this._handleNavigationToStep(2);
+		},
+
+		editStepFour: function () {
+			this._handleNavigationToStep(3);
+		},
+
+		_handleNavigationToStep: function (iStepNumber) {
+			var fnAfterNavigate = function () {
+				this._wizard.goToStep(this._wizard.getSteps()[iStepNumber]);
+				this._oNavContainer.detachAfterNavigate(fnAfterNavigate);
+			}.bind(this);
+
+			this._oNavContainer.attachAfterNavigate(fnAfterNavigate);
+			this.backToWizardContent();
+		},
+
+
+
+		saveDate: async function (oView) {
+
 			console.log(oView);
 
 			const oModel=this.getModel();

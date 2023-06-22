@@ -1,0 +1,380 @@
+<mvc:View
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.uxap"
+    xmlns:layout="sap.ui.layout"
+    xmlns:m="sap.m"
+    xmlns:goals="main.SharedBlocks.goals"
+    xmlns:personal="main.SharedBlocks.personal"
+    xmlns:employment="main.SharedBlocks.employment"
+    xmlns:forms="sap.ui.layout.form"
+    controllerName="main.ext.wizard.WizardReviewPage"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:macrosTable="sap.fe.macros.table"
+    xmlns:macros="sap.fe.macros"
+    xmlns:f="sap.f"
+    xmlns:cards="sap.f.cards"
+>
+    <m:NavContainer>
+        <m:pages>
+            <!-- <m:Page
+                id="wizardContentPage"
+                showHeader="false"
+            > -->
+            <ObjectPageLayout
+                id="wizardReviewPage"
+                showTitleInHeaderContent="true"
+                upperCaseAnchorBar="false"
+                showFooter="true"
+            >
+                <headerTitle>
+                    <ObjectPageDynamicHeaderTitle>
+                        <expandedHeading>
+                            <m:Title
+                                text="Review"
+                                wrapping="true"
+                            />
+                        </expandedHeading>
+                    </ObjectPageDynamicHeaderTitle>
+                </headerTitle>
+
+                <sections>
+                    <ObjectPageSection titleUppercase="false">
+                        <subSections>
+                            <ObjectPageSubSection titleUppercase="false">
+                                <blocks>
+                                    <!-- <ObjectPageLazyLoader stashed="true" id="Section1stashed111x111"> -->
+                                    <m:VBox class="sapUiSmallMargin">
+                                        <form:SimpleForm
+                                            id="customerForm"
+                                            minWidth="1024"
+                                            editable="false"
+                                            layout="ResponsiveGridLayout"
+                                        >
+                                            <form:toolbar>
+                                                <m:Toolbar
+                                                    id="customerToolbarPayments"
+                                                >
+                                                    <m:Title
+                                                        id="customerToolbarPaymentTitles"
+                                                        text="1. Customer Info"
+                                                        level="H2"
+                                                        titleStyle="H4"
+                                                    />
+                                                    <m:ToolbarSpacer />
+                                                    <m:Button
+                                                        id="backToCustomer"
+                                                        icon="sap-icon://edit"
+                                                        tooltip="BackToWizard"
+                                                        type="Emphasized"
+                                                        press="editStepOne"
+                                                    >
+                                                        <m:customData>
+                                                            <core:CustomData
+                                                                key="navBackTo"
+                                                                value="customerStep"
+                                                            />
+                                                        </m:customData>
+                                                    </m:Button>
+                                                </m:Toolbar>
+                                            </form:toolbar>
+                                            <form:content>
+                                                <m:Panel id="primaryPanel">
+                                                    <macros:Form
+                                                        contextPath="/DealerHeaders"
+                                                        metaPath="@com.sap.vocabularies.UI.v1.FieldGroup#Primary"
+                                                        id="primForm"
+                                                        title="Primary"
+                                                    >
+                                                        <macros:layout
+                                                            type="ResponsiveGridLayout"
+                                                            columnsM="1"
+                                                            singleContainerFullSize="false"
+                                                            labelSpanM="6"
+                                                        />
+                                                    </macros:Form>
+
+                                                    <macros:Form
+                                                        contextPath="/DealerHeaders"
+                                                        metaPath="@com.sap.vocabularies.UI.v1.FieldGroup#Secondary"
+                                                        id="secForm"
+                                                        title="Secondary"
+                                                    >
+                                                        <macros:layout
+                                                            type="ResponsiveGridLayout"
+                                                            columnsM="1"
+                                                            singleContainerFullSize="false"
+                                                            labelSpanM="6"
+                                                        />
+                                                    </macros:Form>
+
+                                                    <macros:Form
+                                                        contextPath="/DealerHeaders"
+                                                        metaPath="@com.sap.vocabularies.UI.v1.FieldGroup#ServiceAddress"
+                                                        id="serviceForm"
+                                                        title="Service"
+                                                    >
+                                                        <macros:layout
+                                                            type="ResponsiveGridLayout"
+                                                            columnsM="1"
+                                                            singleContainerFullSize="false"
+                                                            labelSpanM="6"
+                                                        />
+                                                    </macros:Form>
+                                                </m:Panel>
+                                            </form:content>
+                                        </form:SimpleForm>
+                                    </m:VBox>
+                                    <!-- </ObjectPageLazyLoader> -->
+                                </blocks>
+                            </ObjectPageSubSection>
+
+                            <ObjectPageSubSection titleUppercase="false">
+                                <blocks>
+                                    <!-- <ObjectPageLazyLoader stashed="true" id="Section1stashed1"> -->
+                                    <m:VBox class="sapUiSmallMargin">
+                                        <form:SimpleForm
+                                            id="installerForm"
+                                            minWidth="1024"
+                                            editable="false"
+                                            layout="ResponsiveGridLayout"
+                                        >
+                                            <form:toolbar>
+                                                <m:Toolbar
+                                                    id="installerToolbarPayments"
+                                                >
+                                                    <m:Title
+                                                        id="insatllerToolbarPaymentTitles"
+                                                        text="2. Installer Info"
+                                                        level="H2"
+                                                        titleStyle="H4"
+                                                    />
+                                                    <m:ToolbarSpacer />
+                                                    <m:Button
+                                                        id="installerBackToPaymentType"
+                                                        icon="sap-icon://edit"
+                                                        tooltip="BackToWizard"
+                                                        type="Emphasized"
+                                                        press="editStepOne"
+                                                    >
+                                                        <m:customData>
+                                                            <core:CustomData
+                                                                key="navBackTo"
+                                                                value="paymentTypeStep"
+                                                            />
+                                                        </m:customData>
+                                                    </m:Button>
+                                                </m:Toolbar>
+                                            </form:toolbar>
+
+                                            <form:content>
+                                                <form:SimpleForm
+                                                    layout="ColumnLayout"
+                                                    editable="false"
+                                                    width="100%"
+                                                >
+                                                    <m:Label
+                                                        text="First Name"
+                                                    />
+                                                    <m:Text
+                                                        id="idFirstName"
+                                                        text="{installerModel>/firstNameValue}"
+                                                    />
+
+                                                    <m:Label text="Last Name" />
+                                                    <m:Text
+                                                        id="idLastName"
+                                                        text="{installerModel>/lastNameValue}"
+                                                    />
+
+                                                    <m:Label
+                                                        text="Completion Date"
+                                                    />
+                                                    <m:Text
+                                                        id="idCompletionDate"
+                                                        text="{installerModel>/completionDate}"
+                                                    />
+                                                </form:SimpleForm>
+                                            </form:content>
+
+                                            <!-- </m:FlexBox> -->
+                                        </form:SimpleForm>
+                                    </m:VBox>
+                                    <!-- </ObjectPageLazyLoader> -->
+                                </blocks>
+                            </ObjectPageSubSection>
+
+                            <ObjectPageSubSection titleUppercase="false">
+                                <blocks>
+                                    <!-- <ObjectPageLazyLoader stashed="true" id="Section1stashed1"> -->
+                                    <m:VBox class="sapUiSmallMargin">
+                                        <form:SimpleForm
+                                            id="dealerForm"
+                                            minWidth="1024"
+                                            editable="false"
+                                            layout="ResponsiveGridLayout"
+                                        >
+                                            <form:toolbar>
+                                                <m:Toolbar
+                                                    id="dealerToolbarPayments"
+                                                >
+                                                    <m:Title
+                                                        id="dealerToolbarPaymentTitles"
+                                                        text="3. Dealer Info"
+                                                        level="H2"
+                                                        titleStyle="H4"
+                                                    />
+                                                    <m:ToolbarSpacer />
+                                                    <m:Button
+                                                        id="dealerBackToPaymentType"
+                                                        icon="sap-icon://edit"
+                                                        tooltip="BackToWizard"
+                                                        type="Emphasized"
+                                                        press="editStepOne"
+                                                    >
+                                                        <m:customData>
+                                                            <core:CustomData
+                                                                key="navBackTo"
+                                                                value="paymentTypeStep"
+                                                            />
+                                                        </m:customData>
+                                                    </m:Button>
+                                                </m:Toolbar>
+                                            </form:toolbar>
+
+                                            <form:content>
+                                                <m:Panel id="secPanel">
+                                                    <macros:Form
+                                                        contextPath="/DealerHeaders"
+                                                        metaPath="@com.sap.vocabularies.UI.v1.FieldGroup#DealerBasic"
+                                                        id="basicForm"
+                                                        title="Basic Info"
+                                                    >
+                                                        <macros:layout
+                                                            type="ResponsiveGridLayout"
+                                                            columnsM="1"
+                                                            singleContainerFullSize="false"
+                                                            labelSpanM="6"
+                                                        />
+                                                    </macros:Form>
+
+                                                    <macros:Form
+                                                        contextPath="/DealerHeaders"
+                                                        metaPath="@com.sap.vocabularies.UI.v1.FieldGroup#DealerAddress"
+                                                        id="addForm"
+                                                        title="Address"
+                                                    >
+                                                        <macros:layout
+                                                            type="ResponsiveGridLayout"
+                                                            columnsM="1"
+                                                            singleContainerFullSize="false"
+                                                            labelSpanM="6"
+                                                        />
+                                                    </macros:Form>
+
+                                                    <macros:Form
+                                                        contextPath="/DealerHeaders"
+                                                        metaPath="@com.sap.vocabularies.UI.v1.FieldGroup#DealerContact"
+                                                        id="contactForm"
+                                                        title="Contact"
+                                                    >
+                                                        <macros:layout
+                                                            type="ResponsiveGridLayout"
+                                                            columnsM="1"
+                                                            singleContainerFullSize="false"
+                                                            labelSpanM="6"
+                                                        />
+                                                    </macros:Form>
+                                                </m:Panel>
+                                            </form:content>
+                                        </form:SimpleForm>
+                                    </m:VBox>
+                                    <!-- </ObjectPageLazyLoader> -->
+                                </blocks>
+                            </ObjectPageSubSection>
+
+                            <ObjectPageSubSection titleUppercase="false">
+                                <blocks>
+                                    <!-- <ObjectPageLazyLoader stashed="true" id="Section1stashed111x111"> -->
+                                    <m:VBox class="sapUiSmallMargin">
+                                        <forms:SimpleForm
+                                            title="4. Product Details"
+                                            minWidth="1024"
+                                            editable="false"
+                                            layout="ResponsiveLayout"
+                                        >
+                                            <form:toolbar>
+                                                <m:Toolbar
+                                                    id="productToolbarPayments"
+                                                >
+                                                    <m:Title
+                                                        id="productToolbarPaymentTitles"
+                                                        text="4. Product Details"
+                                                        level="H2"
+                                                        titleStyle="H4"
+                                                    />
+                                                    <m:ToolbarSpacer />
+                                                    <m:Button
+                                                        id="productBackToPaymentType"
+                                                        icon="sap-icon://edit"
+                                                        tooltip="BackToWizard"
+                                                        type="Emphasized"
+                                                        press="editStepOne"
+                                                    >
+                                                        <m:customData>
+                                                            <core:CustomData
+                                                                key="navBackTo"
+                                                                value="productStep"
+                                                            />
+                                                        </m:customData>
+                                                    </m:Button>
+                                                </m:Toolbar>
+                                            </form:toolbar>
+
+                                            <m:Table
+                                            items="{itemsModel>/itemsData}"
+                                            
+                                            >
+                                           <m:columns>
+			<m:Column
+				width="12em">
+				<m:Text text="Product" />
+			</m:Column>
+			<m:Column
+				hAlign="End">
+				<m:Text text="Qty" />
+			</m:Column>
+            <m:Column
+				hAlign="End">
+				<m:Text text="Serial No" />
+			</m:Column>
+			
+		</m:columns>
+		<m:items>
+			<m:ColumnListItem vAlign="Middle">
+				<m:cells>
+					<m:ObjectIdentifier
+						title="{itemsModel>descr}"
+						text="{itemsModel>product_ID}"/>
+					<m:Text
+						text="{itemsModel>qty}" />
+					<m:Text
+						text="{itemsModel>serialNo}" />
+					
+				</m:cells>
+			</m:ColumnListItem>
+		</m:items>
+	</m:Table>
+                                        </forms:SimpleForm>
+                                    </m:VBox>
+                                    <!-- </ObjectPageLazyLoader> -->
+                                </blocks>
+                            </ObjectPageSubSection>
+                        </subSections>
+                    </ObjectPageSection>
+                </sections>
+            </ObjectPageLayout>
+            <!-- </m:Page> -->
+        </m:pages>
+    </m:NavContainer>
+</mvc:View>

@@ -1,5 +1,5 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:l="sap.ui.layout">
 	<l:VerticalLayout core:require="{handler: 'main/ext/fragments/SerialNoField'}">
-		<Input id="serialnoinput"  liveChange="handler.changeSerialNo" />
+		<Text id="serialno"  text="testing" />
 	</l:VerticalLayout>
 </core:FragmentDefinition>

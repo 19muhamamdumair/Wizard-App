@@ -5,7 +5,7 @@
         "type": "application",
         "i18n": "i18n/i18n.properties",
         "applicationVersion": {
-            "version": "0.135.1"
+            "version": "0.281.1"
         },
         "title": "{{appTitle}}",
         "description": "{{appDescription}}",
@@ -49,7 +49,7 @@
             "type": "XML",
             "async": true,
             "id": "App"
-            },
+        },
         "flexEnabled": true,
         "dependencies": {
             "minUI5Version": "1.114.0",
@@ -104,6 +104,11 @@
                     "name": "DealerHeadersMain",
                     "pattern": "DealerHeaders({key}):?query:",
                     "target": "Wizard"
+                },
+                {
+                    "name": "WizardReviewPage",
+                    "pattern": ":?query:",
+                    "target": "WizardReview"
                 }
             ],
             "targets": {
@@ -112,9 +117,16 @@
                     "type": "Component",
                     "name": "sap.fe.core.fpm",
                     "options": {
-                        "settings": {                          
-                            "viewName":"main.ext.wizard.Wizard",
+                        "settings": {
+                            "viewName": "main.ext.wizard.Wizard",
                             "entitySet": "Items",
+                            "navigation": {
+                                "Items": {
+                                  "detail": {
+                                    "route": "WizardReview"
+                                  }
+                                }
+                              },
                             "controlConfiguration": {
                                 "@com.sap.vocabularies.UI.v1.LineItem": {
                                     "columns": {
@@ -139,9 +151,43 @@
                         }
                     },
                     "title": "Wizard Page",
-                    "id": "2",
+                    "id": "1",
                     "controlAggregation": "beginColumnPages",
                     "contextPattern": ""
+                },"WizardReview": {
+                    "type": "Component",
+                    "name": "sap.fe.core.fpm",
+                    "title": "Wizard Review Page",
+                    "id": "2",
+                    "controlAggregation": "beginColumnPages",
+                    "contextPattern": "",
+                    "options": {
+                        "settings": {
+                            "viewName": "main.ext.wizard.WizardReviewPage",
+                            "entitySet": "Items",
+                            "controlConfiguration": {
+                                "@com.sap.vocabularies.UI.v1.LineItem": {
+                                    "columns": {
+                                        "CustomColumnRating": {
+                                            "header": "Serial No",
+                                            "width": "10em",
+                                            "importance": "High",
+                                            "horizontalAlign": "Center",
+                                            "position": {
+                                                "placement": "After",
+                                                "anchor": "qty"
+                                            },
+                                            "template": "main.ext.fragments.ReadSerialNoField",
+                                            "availability": "Default",
+                                            "properties": [
+                                                "ID"
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }

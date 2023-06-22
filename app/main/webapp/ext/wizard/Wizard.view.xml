@@ -1,210 +1,291 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc"
-	xmlns="sap.uxap"
-	xmlns:layout="sap.ui.layout"
-	xmlns:m="sap.m"
-	xmlns:goals="main.SharedBlocks.goals"
-	xmlns:personal="main.SharedBlocks.personal"
-	xmlns:employment="main.SharedBlocks.employment"
+<mvc:View
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.uxap"
+    xmlns:layout="sap.ui.layout"
+    xmlns:m="sap.m"
+    xmlns:goals="main.SharedBlocks.goals"
+    xmlns:personal="main.SharedBlocks.personal"
+    xmlns:employment="main.SharedBlocks.employment"
     xmlns:forms="sap.ui.layout.form"
+    controllerName="main.ext.wizard.Wizard"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:macrosTable="sap.fe.macros.table"
+    xmlns:macros="sap.fe.macros"
+    xmlns:f="sap.f"
+    xmlns:cards="sap.f.cards"
+>
+    <m:NavContainer id="wizardNavContainer">
+        <m:pages>
+            <m:Page
+                id="wizardContentPage"
+                showHeader="false"
+            >
+                <m:content>
+                    <m:Wizard
+                        id="CreateProductWizard"
+                        class="sapUiResponsivePadding--header sapUiResponsivePadding--m:content"
+                        complete="wizardCompletedHandler"
+                    >
+                        <m:WizardStep
+                            id="idCustomerStep"
+                            title="Customer Info"
+                            validated="true"
+                        >
+                            <!-- <m:VBox id="mybox"> -->
 
-
-
-	controllerName="main.ext.wizard.Wizard"
-    
-    	xmlns:form="sap.ui.layout.form"
-		xmlns:core="sap.ui.core"
-
-
-
-        xmlns:macrosTable="sap.fe.macros.table"
-        xmlns:macros="sap.fe.macros" xmlns:f="sap.f" xmlns:cards="sap.f.cards"
-    
-    >
-
-		<m:NavContainer id="wizardNavContainer">
-			<m:pages>
-				<m:Page
-				id="wizardContentPage"
-				showHeader="false">
-					<m:content>
-						<m:Wizard id="CreateProductWizard" class="sapUiResponsivePadding--header sapUiResponsivePadding--m:content"
-								complete="wizardCompletedHandler">
-
-							<m:WizardStep id="idCustomerStep"
-										title="Customer Info"
-										validated="true"
-                                        >
-
-								<!-- <m:VBox id="mybox"> -->
-
-
-									<ObjectPageLayout id="ObjectPageLayout" upperCaseAnchorBar="false">
-
-										<sections>
-										
-
-											<ObjectPageSection titleUppercase="false" id="personalSection"  importance="Medium">
-													
-												<subSections>
-
-													<ObjectPageSubSection id="personalSectionSS1"  titleUppercase="false">
-														<blocks>
-															<m:Panel id="primaryPanel" >
-																	<macros:Form contextPath="/DealerHeaders"  metaPath="@com.sap.vocabularies.UI.v1.FieldGroup#Primary" id="primForm" title="Primary">
-																	
-																		<macros:layout type="ColumnLayout" columnsM="1" singleContainerFullSize="false" labelSpanM="6" />
-																	
-																	</macros:Form>
-															</m:Panel>
-															<m:Panel id="secPanel" >
-																	<macros:Form contextPath="/DealerHeaders" metaPath="/DealerHeaders/@com.sap.vocabularies.UI.v1.FieldGroup#Secondary" id="secForm" title="Secondary">
-																	
-																		<macros:layout type="ColumnLayout" columnsM="1" singleContainerFullSize="false" labelSpanM="6" />
-																	
-																	</macros:Form>
-															</m:Panel>
-															<m:Panel id="servicePanel" >
-																	<macros:Form contextPath="/DealerHeaders"  metaPath="/DealerHeaders/@com.sap.vocabularies.UI.v1.FieldGroup#ServiceAddress" id="serForm" title="Service Address">
-																	
-																		<macros:layout type="ColumnLayout" columnsM="1" singleContainerFullSize="false" labelSpanM="6" />
-																	
-																	</macros:Form>
-															</m:Panel>
-															<!-- <personal:Secondary id="social"/>
+                            <ObjectPageLayout
+                                id="ObjectPageLayout"
+                                upperCaseAnchorBar="false"
+                            >
+                                <sections>
+                                    <ObjectPageSection
+                                        titleUppercase="false"
+                                        id="personalSection"
+                                        importance="Medium"
+                                    >
+                                        <subSections>
+                                            <ObjectPageSubSection
+                                                id="personalSectionSS1"
+                                                titleUppercase="false"
+                                            >
+                                                <blocks>
+                                                    <m:Panel id="primaryPanel">
+                                                        <macros:Form
+                                                            contextPath="/DealerHeaders"
+                                                            metaPath="@com.sap.vocabularies.UI.v1.FieldGroup#Primary"
+                                                            id="primForm"
+                                                            title="Primary"
+                                                        >
+                                                            <macros:layout
+                                                                type="ColumnLayout"
+                                                                columnsM="1"
+                                                                singleContainerFullSize="false"
+                                                                labelSpanM="6"
+                                                            />
+                                                        </macros:Form>
+                                                    </m:Panel>
+                                                    <m:Panel id="secPanel">
+                                                        <macros:Form
+                                                            contextPath="/DealerHeaders"
+                                                            metaPath="/DealerHeaders/@com.sap.vocabularies.UI.v1.FieldGroup#Secondary"
+                                                            id="secForm"
+                                                            title="Secondary"
+                                                        >
+                                                            <macros:layout
+                                                                type="ColumnLayout"
+                                                                columnsM="1"
+                                                                singleContainerFullSize="false"
+                                                                labelSpanM="6"
+                                                            />
+                                                        </macros:Form>
+                                                    </m:Panel>
+                                                    <m:Panel id="servicePanel">
+                                                        <macros:Form
+                                                            contextPath="/DealerHeaders"
+                                                            metaPath="/DealerHeaders/@com.sap.vocabularies.UI.v1.FieldGroup#ServiceAddress"
+                                                            id="serForm"
+                                                            title="Service Address"
+                                                        >
+                                                            <macros:layout
+                                                                type="ColumnLayout"
+                                                                columnsM="1"
+                                                                singleContainerFullSize="false"
+                                                                labelSpanM="6"
+                                                            />
+                                                        </macros:Form>
+                                                    </m:Panel>
+                                                    <!-- <personal:Secondary id="social"/>
 															<personal:ServiceAddress id="mailing" columnLayout="1"/> -->
-														</blocks>
+                                                </blocks>
+                                            </ObjectPageSubSection>
+                                        </subSections>
+                                    </ObjectPageSection>
+                                </sections>
+                            </ObjectPageLayout>
 
-														
-													</ObjectPageSubSection>	
+                            <!-- </m:VBox> -->
+                        </m:WizardStep>
+
+                        <m:WizardStep
+                            id="DealerStep"
+                            validated="true"
+                            title="Dealer Info"
+                        >
+                            <m:VBox id="mybox2">
+                                <ObjectPageLayout
+                                    id="ObjectPageLayout2"
+                                    upperCaseAnchorBar="false"
+                                >
+                                    <sections>
+                                        <ObjectPageSection
+                                            titleUppercase="false"
+                                            id="dealerPage"
+                                            importance="Medium"
+                                        >
+                                            <subSections>
+                                                <ObjectPageSubSection
+                                                    id="dealerSubSection"
+                                                    titleUppercase="false"
+                                                >
+                                                    <blocks>
+                                                        <m:Panel
+                                                            id="dealerBasic"
+                                                        >
+                                                            <macros:Form
+                                                                contextPath="/DealerHeaders"
+                                                                metaPath="/DealerHeaders/@com.sap.vocabularies.UI.v1.FieldGroup#DealerBasic"
+                                                                id="dBasic"
+                                                                title="Basic Info"
+                                                            >
+                                                                <macros:layout
+                                                                    type="ColumnLayout"
+                                                                    columnsM="1"
+                                                                    singleContainerFullSize="false"
+                                                                    labelSpanM="6"
+                                                                />
+                                                            </macros:Form>
+                                                        </m:Panel>
+                                                        <m:Panel
+                                                            id="dealerAddress"
+                                                        >
+                                                            <macros:Form
+                                                                contextPath="/DealerHeaders"
+                                                                metaPath="/DealerHeaders/@com.sap.vocabularies.UI.v1.FieldGroup#DealerAddress"
+                                                                id="dAddress"
+                                                                title="Address"
+                                                            >
+                                                                <macros:layout
+                                                                    type="ColumnLayout"
+                                                                    columnsM="1"
+                                                                    singleContainerFullSize="false"
+                                                                    labelSpanM="6"
+                                                                />
+                                                            </macros:Form>
+                                                        </m:Panel>
+                                                        <m:Panel
+                                                            id="dealerContact"
+                                                        >
+                                                            <macros:Form
+                                                                contextPath="/DealerHeaders"
+                                                                metaPath="/DealerHeaders/@com.sap.vocabularies.UI.v1.FieldGroup#DealerContact"
+                                                                id="dContact"
+                                                                title="Contact"
+                                                            >
+                                                                <macros:layout
+                                                                    type="ColumnLayout"
+                                                                    columnsM="1"
+                                                                    singleContainerFullSize="false"
+                                                                    labelSpanM="6"
+                                                                />
+                                                            </macros:Form>
+                                                        </m:Panel>
+                                                    </blocks>
+                                                </ObjectPageSubSection>
+                                            </subSections>
+                                        </ObjectPageSection>
+                                    </sections>
+                                </ObjectPageLayout>
+                            </m:VBox>
+                        </m:WizardStep>
+
+                        <m:WizardStep
+                            id="idWizardStep"
+                            title="Installer Info"
+                            validated="true"
+                        >
+                            <!-- <m:VBox id="mybox"> -->
+
+                            <!-- <ObjectPageLayout id="installerObjectPageLayout" upperCaseAnchorBar="false"> -->
+
+                            <!-- <sections> -->
+
+                            <!-- <ObjectPageSection titleUppercase="false" id="wizardSection"  importance="Medium"> -->
+
+                            <!-- <subSections> -->
+
+                            <!-- <ObjectPageSubSection id="wizardSectionSS1"  titleUppercase="false"> -->
+                            <form:SimpleForm
+                                title="Installer"
+                                minWidth="1024"
+                                editable="true"
+                                layout="ResponsiveGridLayout"
+                            >
+                                <form:content>
+                                    <m:Label text="First Name" />
+                                    <m:Input
+                                        valueState="{/firstNameState}"
+                                        id="fname"
+                                        liveChange="additionalInfoValidation"
+                                        placeholder="First Name"
+                                    />
+
+                                    <m:Label text="Last Name" />
+                                    <m:Input
+                                        valueState="{/lastNameState}"
+                                        id="lname"
+                                        liveChange="additionalInfoValidation"
+                                        placeholder="Last Name"
+                                    />
+
+                                    <m:Label text="Completion Date" />
+                                    <m:DatePicker
+                                        valueState="{/completionDateState}"
+                                        change="additionalInfoValidation"
+                                        id="completionDate"
+                                        placeholder="Enter Completion Date"
+                                    />
+                                </form:content>
+                            </form:SimpleForm>
+
+                            <!-- </ObjectPageSubSection>	
 
 												</subSections>
-											</ObjectPageSection>
+											</ObjectPageSection> -->
 
-										
+                            <!-- </sections> -->
 
-										
-										</sections>
-								
-									</ObjectPageLayout>
+                            <!-- </ObjectPageLayout> -->
 
-								<!-- </m:VBox> -->
+                            <!-- </m:VBox> -->
+                        </m:WizardStep>
 
-
-
-    						</m:WizardStep>
-
-
-							<m:WizardStep id="DealerStep"   validated="true" title="Dealer Info">
-
-										<m:VBox id="mybox2">
-
-											<ObjectPageLayout id="ObjectPageLayout2" upperCaseAnchorBar="false">
-					
-												<sections>
-													
-
-													<ObjectPageSection titleUppercase="false" id="dealerPage"  importance="Medium">
-															
-														<subSections>
-
-															<ObjectPageSubSection id="dealerSubSection"  titleUppercase="false">
-																	<blocks>
-																		<m:Panel id="dealerBasic" >
-																				<macros:Form contextPath="/DealerHeaders" metaPath="/DealerHeaders/@com.sap.vocabularies.UI.v1.FieldGroup#DealerBasic" id="dBasic" title="Basic Info">
-																				
-																					<macros:layout type="ColumnLayout" columnsM="1" singleContainerFullSize="false" labelSpanM="6" />
-																				
-																				</macros:Form>
-																		</m:Panel>
-																		<m:Panel id="dealerAddress" >
-
-																				<macros:Form contextPath="/DealerHeaders" metaPath="/DealerHeaders/@com.sap.vocabularies.UI.v1.FieldGroup#DealerAddress" id="dAddress" title="Address">
-																				
-																					<macros:layout type="ColumnLayout" columnsM="1" singleContainerFullSize="false" labelSpanM="6" />
-																				
-																				</macros:Form>
-																		</m:Panel>
-																		<m:Panel id="dealerContact" >
-																				<macros:Form contextPath="/DealerHeaders" metaPath="/DealerHeaders/@com.sap.vocabularies.UI.v1.FieldGroup#DealerContact" id="dContact" title="Contact">
-																				
-																					<macros:layout type="ColumnLayout" columnsM="1" singleContainerFullSize="false" labelSpanM="6" />
-																				
-																				</macros:Form>
-																		</m:Panel>
-																	</blocks>
-																	<form:SimpleForm
-																title="Installer"
-																minWidth="1024"
-																editable="true"
-																layout="ResponsiveGridLayout"
-																>
-															<form:content>
-
-															
-															
-																<m:Label text="First Name"/>
-																<m:Input valueState="{/firstNameState}"   
-																			id="fname" liveChange="additionalInfoValidation"
-																			placeholder="First Name" />
-																
-																<m:Label text="Last Name" />
-																<m:Input valueState="{/lastNameState}"
-																			id="lname" liveChange="additionalInfoValidation"
-																			placeholder="Last Name" />
-
-																<m:Label text="Completion Date" />
-																<m:DatePicker  valueState="{/completionDateState}" change="additionalInfoValidation"  id="completionDate"
-																	
-																	placeholder="Enter Completion Date"
-																	/>
-																	
-															</form:content>
-														</form:SimpleForm> 
-
-															</ObjectPageSubSection>
-
-														</subSections>
-													</ObjectPageSection>
-											
-												</sections>
-					
-											</ObjectPageLayout>
-										</m:VBox>
-							</m:WizardStep>
-
-							<m:WizardStep id="ItemsStep"
-										title="Products"
-										validated="true">
-										<f:DynamicPage id="Main">
-      
-					<f:content>
-						<m:Panel id="itemsPanel"  binding="{path:'/Items(ID=ff1f17f3-dd40-499b-bc03-9c740bbda595)'}">								
-														<macros:Table	metaPath="@com.sap.vocabularies.UI.v1.LineItem"
-																			readOnly="true"
-																			id="LineItemTablePageCustomActions"
-																			busy="{ui>/isBusy}"
-														/>
-										</m:Panel>
-
-			
-        </f:content>
-		
-    </f:DynamicPage>
-
-	
-	
-										</m:WizardStep>
-
-						</m:Wizard>
-					</m:content>
-					<m:footer>
-						<m:OverflowToolbar id="overflowtoolbar">
-							<m:ToolbarSpacer id="spacer"/>
-							<m:Button id="cancelbutton" text="Cancel" press="handleWizardCancel"/>
-						</m:OverflowToolbar>
-					</m:footer>
-				</m:Page>
-				
-			</m:pages>
-		</m:NavContainer>
+                        <m:WizardStep
+                            id="ItemsStep"
+                            title="Products"
+                            validated="true"
+                        >
+                            <f:DynamicPage id="Main">
+                                <f:content>
+                                    <m:Panel
+                                        id="itemsPanel"
+                                        binding="{path:'/Items(ID=ff1f17f3-dd40-499b-bc03-9c740bbda595)'}"
+                                    >
+                                        <macros:Table
+                                            contextPath="/Items"
+                                            metaPath="@com.sap.vocabularies.UI.v1.LineItem"
+                                            readOnly="true"
+                                            id="LineItemTablePageCustomActions"
+                                            busy="{ui>/isBusy}"
+                                        />
+                                            
+                                    </m:Panel>
+                                </f:content>
+                            </f:DynamicPage>
+                        </m:WizardStep>
+                    </m:Wizard>
+                </m:content>
+                <m:footer>
+                    <m:OverflowToolbar id="overflowtoolbar">
+                        <m:ToolbarSpacer id="spacer" />
+                        <m:Button
+                            id="cancelbutton"
+                            text="Cancel"
+                            press="handleWizardCancel"
+                        />
+                    </m:OverflowToolbar>
+                </m:footer>
+            </m:Page>
+        </m:pages>
+    </m:NavContainer>
 </mvc:View>

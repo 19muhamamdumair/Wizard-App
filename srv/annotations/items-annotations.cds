@@ -38,7 +38,7 @@ annotate service.Items with @(
 
 annotate service.Items with {
     product @(Common: {
-        Text           : descr,
+        Text           : product.productID,
         TextArrangement: #TextOnly
     })
 
@@ -46,7 +46,7 @@ annotate service.Items with {
 
 annotate service.Items with @(UI.FieldGroup #ProductData: {Data: [
     {Value: product_ID},
-    {Value: product.productID},
+    {Value: descr},
 ]});
 
 annotate service.Products with @(
@@ -93,3 +93,30 @@ annotate service.Products with @(UI: {HeaderInfo: {
     TypeImageUrl  : url,
 
 }});
+
+
+
+
+/**
+* ***
+*
+* Object Page Facets
+*
+* ***
+*/
+annotate service.Items with @(UI : {
+    Facets                : [
+        {
+            $Type  : 'UI.ReferenceFacet',
+            Label  : 'Product Details',
+            Target : '@UI.FieldGroup#ProductDetails'
+        }
+    ],
+    FieldGroup #ProductDetails : {Data : [
+        { $Type : 'UI.DataField', Label : 'Product Id',Value : product.productID},
+        { $Type : 'UI.DataField', Label : 'Description',Value : descr}
+    ]}
+    
+
+
+});
