@@ -5,7 +5,7 @@
         "type": "application",
         "i18n": "i18n/i18n.properties",
         "applicationVersion": {
-            "version": "0.281.1"
+            "version": "0.313.1"
         },
         "title": "{{appTitle}}",
         "description": "{{appDescription}}",
@@ -119,7 +119,7 @@
                     "options": {
                         "settings": {
                             "viewName": "main.ext.wizard.Wizard",
-                            "entitySet": "Items",
+                            "entitySet":"DealerHeaders",
                             "navigation": {
                                 "Items": {
                                   "detail": {
@@ -128,7 +128,7 @@
                                 }
                               },
                             "controlConfiguration": {
-                                "@com.sap.vocabularies.UI.v1.LineItem": {
+                                "items/@com.sap.vocabularies.UI.v1.LineItem": {
                                     "columns": {
                                         "CustomColumnRating": {
                                             "header": "Serial No",
