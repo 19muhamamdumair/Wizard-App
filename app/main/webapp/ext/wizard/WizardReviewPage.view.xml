@@ -355,7 +355,7 @@
 				<m:cells>
 					<m:ObjectIdentifier
 						title="{itemsModel>descr}"
-						text="{itemsModel>product_ID}"/>
+						text="{itemsModel>product>productID}"/>
 					<m:Text
 						text="{itemsModel>qty}" />
 					<m:Text

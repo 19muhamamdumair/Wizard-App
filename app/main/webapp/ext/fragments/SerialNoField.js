@@ -60,37 +60,42 @@ sap.ui.define(["sap/m/MessageBox",'sap/fe/core/PageController',
 				})
 
 			}else{
+				let itemData=oEvent.getSource().getBindingContext().getObject()
 				let dealerId=oEvent.getSource().getBindingContext().getObject().ID;
 				let serialNo=oEvent.getSource().getDOMValue();
 				const oModel=this.getModel();
 
-				const oListBinding = oModel.bindList("/Items");
+				// const oListBinding = oModel.bindList("/Items");
 	
 		
 					let itemsData=[];
-					await oListBinding.requestContexts().then((items)=> {
+				// 	await oListBinding.requestContexts().then((items)=> {
 	
-						const iCrewEmpCount = items.length;
+				// 		const iCrewEmpCount = items.length;
 			
-						if(iCrewEmpCount === 0) {
-							fnTimesheetEmpCreateResolve();
-						} else {
-							items.forEach(function (item) {
-								const itemData = item.getObject();
-								itemsData.push(itemData);
-							})
-						}
+				// 		if(iCrewEmpCount === 0) {
+				// 			fnTimesheetEmpCreateResolve();
+				// 		} else {
+				// 			items.forEach(function (item) {
+				// 				const itemData = item.getObject();
+				// 				itemsData.push(itemData);
+				// 			})
+				// 		}
 	
 	
-					})
+				// 	})
 
 
-					itemsData.map((item)=>{
-						if(item.ID===dealerId)
-						{
-							Object.assign(item,{"serialNo":serialNo})
-						}
-					})
+					// itemsData.map((item)=>{
+					// 	if(item.ID===dealerId)
+					// 	{
+					// 		Object.assign(item,{"serialNo":serialNo})
+					// 	}
+					// })
+
+					Object.assign(itemData,{"serialNo":serialNo})
+
+					itemsData.push(itemData)
 	
 					this.model = new JSONModel();
 					this.model.setData({

@@ -259,16 +259,14 @@
                                 <f:content>
                                     <m:Panel
                                         id="itemsPanel"
-                                        binding="{path:'/Items(ID=ff1f17f3-dd40-499b-bc03-9c740bbda595)'}"
                                     >
                                         <macros:Table
-                                            contextPath="/Items"
-                                            metaPath="@com.sap.vocabularies.UI.v1.LineItem"
+                                            personalization="true"
+                                            metaPath="items/@com.sap.vocabularies.UI.v1.LineItem"
                                             readOnly="true"
                                             id="LineItemTablePageCustomActions"
                                             busy="{ui>/isBusy}"
                                         />
-                                            
                                     </m:Panel>
                                 </f:content>
                             </f:DynamicPage>
